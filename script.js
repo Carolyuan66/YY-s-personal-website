@@ -3,7 +3,7 @@ $(document).ready(function() {
   // typing animation
   (function($) {
     $.fn.writeText = function(content) {
-        var contentArray = content.split(""),
+        let contentArray = content.split(""),
             current = 0,
             elem = this;
         setInterval(function() {
@@ -22,40 +22,40 @@ $(document).ready(function() {
   new WOW().init();
     
   // Push the body and the nav over by 285px over
-  var main = function() {
-    $('.fa-bars').click(function() {
-      $('.nav-screen').animate({
-        right: "0px"
-      }, 200);
+    const main = function () {
+        $('.fa-bars').click(function () {
+            $('.nav-screen').animate({
+                right: "0px"
+            }, 200);
 
-      $('body').animate({
-        right: "285px"
-      }, 200);
-    });
+            $('body').animate({
+                right: "285px"
+            }, 200);
+        });
 
-    // Then push them back */
-    $('.fa-times').click(function() {
-      $('.nav-screen').animate({
-        right: "-285px"
-      }, 200);
+        // Then push them back */
+        $('.fa-times').click(function () {
+            $('.nav-screen').animate({
+                right: "-285px"
+            }, 200);
 
-      $('body').animate({
-        right: "0px"
-      }, 200);
-    });
+            $('body').animate({
+                right: "0px"
+            }, 200);
+        });
 
-    $('.nav-links a').click(function() {
-      $('.nav-screen').animate({
-        right: "-285px"
-      }, 500);
+        $('.nav-links a').click(function () {
+            $('.nav-screen').animate({
+                right: "-285px"
+            }, 500);
 
-      $('body').animate({
-        right: "0px"
-      }, 500);
-    });
-  };
+            $('body').animate({
+                right: "0px"
+            }, 500);
+        });
+    };
 
-  $(document).ready(main);
+    $(document).ready(main);
   
   // initiate full page scroll
 
@@ -69,11 +69,11 @@ $(document).ready(function() {
     fitToSection: false,
 
     afterLoad: function ( anchorLink, index){
-      var loadedSection = $(this);
+        const loadedSection = $(this);
 
 
-      //using index
-      if(index==1){
+        //using index
+      if(index===1){
         /* add opacity to arrow */
         $('.fa-chevron-down').each(function(){
           $(this).css('opacity','1')
@@ -83,14 +83,14 @@ $(document).ready(function() {
         });
       }
 
-      else if(index!=1){
+      else if(index!==1){
         $('.header-links a').each(function(){
           $(this).css('color','black')
         });
       }
 
       //using index
-      if(index == 2){
+      if(index === 2){
 
         /* animate skill bars */
         $('.skillbar').each(function(){
@@ -124,9 +124,9 @@ $(document).ready(function() {
   // smooth scrolling
   $(function() {
     $('a[href*=#]:not([href=#])').click(function() {
-      if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-        var target = $(this.hash);
-        target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+      if (location.pathname.replace(/^\//,'') === this.pathname.replace(/^\//,'') && location.hostname === this.hostname) {
+          let target = $(this.hash);
+          target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
         if (target.length) {
           $('html,body').animate({
             scrollTop: target.offset().top
@@ -141,20 +141,20 @@ $(document).ready(function() {
   $(function() {
 
     // Get the form.
-    var form = $('#ajax-contact');
+      const form = $('#ajax-contact');
 
-    // Get the messages div.
-    var formMessages = $('#form-messages');
+      // Get the messages div.
+      const formMessages = $('#form-messages');
 
-    // Set up an event listener for the contact form.
+      // Set up an event listener for the contact form.
     $(form).submit(function(e) {
       // Stop the browser from submitting the form.
       e.preventDefault();
 
       // Serialize the form data.
-      var formData = $(form).serialize();
+        const formData = $(form).serialize();
 
-      // Submit the form using AJAX.
+        // Submit the form using AJAX.
       $.ajax({
         type: 'POST',
         url: $(form).attr('action'),
