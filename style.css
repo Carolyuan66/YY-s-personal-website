@@ -19,7 +19,7 @@
   }
 
   p {
-    font-size: 20px;
+    font-size: 16px;
     color: #484848;
   }
 
@@ -403,6 +403,11 @@
 
   .fa-paper-plane {
     color: #484848;
+  }
+
+  .btn-margin .fa-linkedin {
+    margin-right: 10px;
+    margin-left: -10px;
   }
 
   /* paper plane shake on hover */
