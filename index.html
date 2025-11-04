@@ -1,220 +1,385 @@
 <!DOCTYPE html>
 <html lang="en" >
 <head>
-  <meta charset="UTF-8">
-  <title>Carol Personal Website </title>
-  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-  <link rel="stylesheet" href="./style.css">
+    <meta charset="UTF-8">
+    <title>Carol Personal Website </title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="assets/css/style.css">
 
+    <style>
+        /* 图表容器样式 */
+        .chart-container {
+            width: 90%;
+            max-width: 900px;
+            height: 450px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        #project1-chart {
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .project-description {
+            max-width: 800px;
+            text-align: center;
+            margin: 15px auto;
+            line-height: 1.6;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .chart-container {
+                width: 95%;
+                height: 350px;
+                padding: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
 <!-- partial:index.partial.html -->
 <html>
 <head>
-  <title>Carol Yuan</title>
-  <meta name="description" content="Web designer and front-end developer">
-  <link href='https://fonts.googleapis.com/css?family=Raleway:100,200,400,600' rel='stylesheet' type='text/css'>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.7.4/jquery.fullPage.min.css" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/parallax-theme/assets/animate.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/styles.css">
+    <title>Carol Yuan</title>
+    <meta name="description" content="Web designer and front-end developer">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:100,200,400,600' rel='stylesheet' type='text/css'>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.7.4/jquery.fullPage.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/parallax-theme/assets/animate.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- ECharts 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
 </head>
 <body>
 
 <!-- navbar header -->
 <div class="nav-header">
-  <div class="nav-brand">
-    <!-- img src="https://s3-us-west-2.amazonaws.com/parallax-theme/assets/bradlogo2.png"-->
-  </div>
-  <i class="fa fa-bars fa-3x"></i>
-    <div class="header-links">
-      <ul>
-        <li data-menuanchor="fifthPage"><a href="#contact">CONTACT</a></li>
-        <li data-menuanchor="fourthPage"><a href="#portfolio">PORTFOLIO</a></li>
-        <li data-menuanchor="thirdPage"><a href="#projects">PROJECTS</a></li>
-        <li data-menuanchor="secondPage"><a href="#about">ABOUT ME</a></li>
-      </ul>
+    <div class="nav-brand">
+        <!-- img src="https://s3-us-west-2.amazonaws.com/parallax-theme/assets/bradlogo2.png"-->
     </div>
-  </div>
+    <i class="fa fa-bars fa-3x"></i>
+    <div class="header-links">
+        <ul>
+            <li data-menuanchor="fifthPage"><a href="#contact">CONTACT</a></li>
+            <li data-menuanchor="fourthPage"><a href="#portfolio">PORTFOLIO</a></li>
+            <li data-menuanchor="thirdPage"><a href="#projects">PROJECTS</a></li>
+            <li data-menuanchor="secondPage"><a href="#about">ABOUT ME</a></li>
+        </ul>
+    </div>
+</div>
 </div>
 <!-- end navbar header -->
 
 <!-- sidebar slider -->
 <div class="nav-screen">
-  <i class="fa fa-times fa-3x"></i>
-  <div class="nav-container">
-    <div class="nav-links">
-      <ul id='myMenu'>
-        <li data-menuanchor="secondPage"><a href="#about">ABOUT</a></li>
-        <li data-menuanchor="thirdPage"><a href="#projects">PROJECTS</a></li>
-        <li data-menuanchor="fourthPage"><a href="#contact">CONTACT</a></li>
-      </ul>
+    <i class="fa fa-times fa-3x"></i>
+    <div class="nav-container">
+        <div class="nav-links">
+            <ul id='myMenu'>
+                <li data-menuanchor="secondPage"><a href="#about">ABOUT</a></li>
+                <li data-menuanchor="thirdPage"><a href="#projects">PROJECTS</a></li>
+                <li data-menuanchor="fourthPage"><a href="#contact">CONTACT</a></li>
+            </ul>
+        </div>
     </div>
-  </div>
 </div>
 <!-- end navbar slider -->
 
 <!-- begin fullpage -->
 <div id="fullpage">
-  <!-- begin section -->
+    <!-- begin section -->
 
-  <div class="section aboutme" data-anchor="aboutme">
-    <div class="opaque-bg animated fadeInDown">
-      <h1 style="color:white">Carol Yuan</h1>
-      <p><span id="holder"></span><span class="blinking-cursor">|</span></p>
+    <div class="section aboutme" data-anchor="aboutme">
+        <div class="opaque-bg animated fadeInDown">
+            <h1 style="color:white">Carol Yuan</h1>
+            <p><span id="holder"></span><span class="blinking-cursor">|</span></p>
+        </div>
+        <i id="moveDown" class="fa fa-chevron-down fa-3x bounce"></i>
     </div>
-      <i id="moveDown" class="fa fa-chevron-down fa-3x bounce"></i>
-  </div>
-  <!-- end section -->
+    <!-- end section -->
 
-  <!-- begin section -->
-  <div class="section" data-anchor="skills">
-    <div class="content">
-      <h1 class="wow fadeInDown" data-wow-delay="0.2s" style="color:#337ab7">ABOUT ME</h1>
-      <p class="wow fadeInDown" data-wow-delay="0.2s">Hi, I'm Carol Yuan,
-        a Master’s graduate in Digital Business with hands-on experience in market research,
-        data analysis, and social media marketing. I’m skilled in using tools like SQL, Tableau,
-        Power BI, SAP, and Python to uncover insights and support better business decisions.
-        With a strong foundation in business analytics, I enjoy turning data into strategy and
-        helping teams make smarter, data-driven choices. I’m excited to bring my analytical mindset
-        and digital expertise into a fast-paced, forward-thinking environment.
-      </p>
+    <!-- begin section -->
+    <div class="section" data-anchor="skills">
+        <div class="content">
+            <h1 class="wow fadeInDown" data-wow-delay="0.2s" style="color:#337ab7">ABOUT ME</h1>
+            <p class="wow fadeInDown" data-wow-delay="0.2s">Hi, I'm Carol Yuan,
+                a Master's graduate in Digital Business with hands-on experience in market research,
+                data analysis, and social media marketing. I'm skilled in using tools like SQL, Tableau,
+                Power BI, SAP, and Python to uncover insights and support better business decisions.
+                With a strong foundation in business analytics, I enjoy turning data into strategy and
+                helping teams make smarter, data-driven choices. I'm excited to bring my analytical mindset
+                and digital expertise into a fast-paced, forward-thinking environment.
+            </p>
 
-      <div class=" wow fadeInUp container-skillbar" data-wow-delay="0.2s">
-        <div class="skillbar clearfix " data-percent="90%">
-          <div class="skillbar-title" style="background: #337ab7;"><span>TABLEAU</span></div>
-          <div class="skillbar-bar" style="background: #337ab7;"></div>
-          <div class="skill-bar-percent">90%</div>
-        </div> <!-- End Skill Bar -->
+            <div class=" wow fadeInUp container-skillbar" data-wow-delay="0.2s">
+                <div class="skillbar clearfix " data-percent="90%">
+                    <div class="skillbar-title" style="background: #337ab7;"><span>TABLEAU</span></div>
+                    <div class="skillbar-bar" style="background: #337ab7;"></div>
+                    <div class="skill-bar-percent">90%</div>
+                </div> <!-- End Skill Bar -->
 
-        <div class="skillbar clearfix " data-percent="60%">
-          <div class="skillbar-title" style="background: #337ab7;"><span>PYTHON</span></div>
-          <div class="skillbar-bar" style="background: #337ab7;"></div>
-          <div class="skill-bar-percent">60%</div>
-        </div> <!-- End Skill Bar -->
+                <div class="skillbar clearfix " data-percent="60%">
+                    <div class="skillbar-title" style="background: #337ab7;"><span>PYTHON</span></div>
+                    <div class="skillbar-bar" style="background: #337ab7;"></div>
+                    <div class="skill-bar-percent">60%</div>
+                </div> <!-- End Skill Bar -->
 
-        <div class="skillbar clearfix " data-percent="80%">
-          <div class="skillbar-title" style="background: #337ab7;"><span>SQL</span></div>
-          <div class="skillbar-bar" style="background: #337ab7;"></div>
-          <div class="skill-bar-percent">80%</div>
-        </div> <!-- End Skill Bar -->
+                <div class="skillbar clearfix " data-percent="80%">
+                    <div class="skillbar-title" style="background: #337ab7;"><span>SQL</span></div>
+                    <div class="skillbar-bar" style="background: #337ab7;"></div>
+                    <div class="skill-bar-percent">80%</div>
+                </div> <!-- End Skill Bar -->
 
-        <div class="skillbar clearfix " data-percent="90%">
-          <div class="skillbar-title" style="background: #337ab7;"><span>POWER BI</span></div>
-          <div class="skillbar-bar" style="background: #337ab7;"></div>
-          <div class="skill-bar-percent">90%</div>
-        </div> <!-- End Skill Bar -->
+                <div class="skillbar clearfix " data-percent="90%">
+                    <div class="skillbar-title" style="background: #337ab7;"><span>POWER BI</span></div>
+                    <div class="skillbar-bar" style="background: #337ab7;"></div>
+                    <div class="skill-bar-percent">90%</div>
+                </div> <!-- End Skill Bar -->
 
-        <div class="skillbar clearfix " data-percent="60%">
-          <div class="skillbar-title" style="background: #337ab7;"><span>HTML</span></div>
-          <div class="skillbar-bar" style="background: #337ab7;"></div>
-          <div class="skill-bar-percent">60%</div>
-        </div> <!-- End Skill Bar -->
+                <div class="skillbar clearfix " data-percent="60%">
+                    <div class="skillbar-title" style="background: #337ab7;"><span>HTML</span></div>
+                    <div class="skillbar-bar" style="background: #337ab7;"></div>
+                    <div class="skill-bar-percent">60%</div>
+                </div> <!-- End Skill Bar -->
 
-        <div class="skillbar clearfix " data-percent="70%">
-          <div class="skillbar-title" style="background: #337ab7;"><span>SAP</span></div>
-          <div class="skillbar-bar" style="background: #337ab7;"></div>
-          <div class="skill-bar-percent">70%</div>
-        </div> <!-- End Skill Bar -->
+                <div class="skillbar clearfix " data-percent="70%">
+                    <div class="skillbar-title" style="background: #337ab7;"><span>SAP</span></div>
+                    <div class="skillbar-bar" style="background: #337ab7;"></div>
+                    <div class="skill-bar-percent">70%</div>
+                </div> <!-- End Skill Bar -->
 
-        <div class="skillbar clearfix " data-percent="90%">
-          <div class="skillbar-title" style="background: #337ab7;"><span>MS EXCEL</span></div>
-          <div class="skillbar-bar" style="background: #337ab7;"></div>
-          <div class="skill-bar-percent">90%</div>
-        </div> <!-- End Skill Bar -->
-      </div>
-    </div>
-  </div>
-  <!-- end section -->
-
-  <!-- begin section -->
-  <div class="section" data-anchor="projects">
-    <div class="content-slide">
-        <div class="slide">
-          <h1 class="wow fadeInDown" data-wow-delay="0.2s" style="color:#337ab7">WHATSAPP BOT</h1>
-          <p class="wow fadeInDown" data-wow-delay="0.2s">Multifunction</p><br><br><br>
-          <!--img class="wow fadeInUp" data-wow-delay="0.2s" data-src="https://s3-us-west-2.amazonaws.com/bradengelhardt/assets/xfaire.jpg"-->
-          <p class="wow fadeInUp" data-wow-delay="0.2s">Whatsapp Bot Development Project Using Node Js.</p>
-          <p class="wow fadeInUp" data-wow-delay="0.2s"> Status: <span style="color:#337ab7"> Ongoing</span></p>
-          <form>
-            <button formaction="https://wa.me/62896070552461" type="submit" id="submit" class="btn btn-lg wow fadeInUp" data-wow-delay="0.2s"> PROJECT LINK </button></form>
-          </form>
-        </div>
-        <div class="slide">
-          <h1 style="color:#337ab7">WEB RESTFULL API</h1>
-          <p>Rest API Documentation Project</p><br><br><br>
-          <p>This Project Is Also Very Influential On The Whatsapp Bot Project.</p>
-          <p> Status: <span style="color:#337ab7"> Ongoing</span></p>
-          <form>
-            <button formaction="https://api.mamahmubang.ga" type="submit" id="submit" class="btn btn-lg"> PROJECT LINK </button>
-          </form>
-        </div>
-
-      <div class="slide">
-          <h1 style="color:#337ab7">Telegram Bot</h1>
-          <p>A Multifunction Bot Project</p><br><br><br>
-          <p>Very Useful Project For Telegram Users.</p>
-          <p> Status: <span style="color:#337ab7"> Pending</span></p>
-          <!--form>
-            <button formaction="#" type="submit" id="submit" class="btn btn-lg"> PROJECT LINK </button>
-          </form-->
-        </div>
-
-      <div class="slide">
-          <h1 style="color:#337ab7">COOMING SOON</h1>
-          <p>N/A</p><br><br><br>
-          <p>M/A.</p>
-          <p> Status: <span style="color:#337ab7"> Cooming Soon</span></p>
-          <!--form>
-            <button formaction="#" type="submit" id="submit" class="btn btn-lg"> PROJECT LINK </button>
-          </form-->
-        </div>
-
-      <div class="slide">
-          <h1 style="color:#337ab7">COOMING SOON</h1>
-          <p>N/A</p><br><br><br>
-          <p>N/A</p>
-          <!--form>
-            <button formaction="#" type="submit" id="submit" class="btn btn-lg"> PROJECT LINK </button>
-          </form-->
+                <div class="skillbar clearfix " data-percent="90%">
+                    <div class="skillbar-title" style="background: #337ab7;"><span>MS EXCEL</span></div>
+                    <div class="skillbar-bar" style="background: #337ab7;"></div>
+                    <div class="skill-bar-percent">90%</div>
+                </div> <!-- End Skill Bar -->
+            </div>
         </div>
     </div>
-  </div>
-  <!-- end section -->
-  <!-- begin section -->
-  <div class="section" data-anchor="contact">
-    <div class="content wow fadeInDown" data-wow-delay="0.2s">
-      <h1 style="color:#337ab7">CONTACT</h1><br>
-      <p>Whether you're interested in working with me or just want to say hello, I'd love to hear from you!</p>
-      <!--- <p>MAIL: <span style="color:#337ab7">njetty@indiana.edu</span></p> -->
-      <p>Tel: <span style="color:#337ab7">(64) 22-161-5681</span></p>
-      <p>Email: <span style="color:#337ab7">carolyuan66@gmail.com</span></p>
-      <br>
-      <div class="wow fadeInUp" data-wow-delay="0.5s">
-            <form method="get" action="https://www.linkedin.com/in/carol-yuan/">
-            <button type="submit" id="submit" name="submit" class="btn btn-lg btn-margin"><i class="fa fa-linkedin fa-2x"></i>MY LINKEDIN</button></form>
-      <br>
-      <p>OR</p>
-      <div class="social-links">
-        <span><a href="https://www.instagram.com/carol_yuane/" target="_blank"><i class="fa fa-instagram fa-2x"></i></a></span>
-        <!-- <span><a target="_blank" href="https://wa.me/6281387980448?text=Halo+Ngab!" target="_blank"><i class="fa fa-whatsapp fa-2x"></i></a></span> -->
-        <span><a href="https://github.com/Carolyuan66" target="_blank"><i class="fa fa-github fa-2x"></i></a></span>
-      </div>
+    <!-- end section -->
+
+    <!-- begin section -->
+    <div class="section" data-anchor="projects">
+        <div class="content-slide">
+
+            <!-- Project 1: Genetic Testing Market Analysis -->
+            <div class="slide">
+                <h1 class="wow fadeInDown" data-wow-delay="0.2s" style="color:#337ab7">GENETIC TESTING MARKET ANALYSIS</h1>
+                <p class="wow fadeInDown" data-wow-delay="0.2s">Market Research & Data Visualization</p>
+
+                <div class="project-description wow fadeInUp" data-wow-delay="0.2s">
+                    <p>This 2020 project analyzed China's consumer genetic testing market to support business development.
+                        The visualization shows user growth from 2016-2020 and projections for 2021-2022,
+                        revealing key growth trends and helping anticipate future market demand for strategic planning.</p>
+                </div>
+
+                <!-- 图表容器 -->
+                <div class="chart-container wow fadeInUp" data-wow-delay="0.3s">
+                    <div id="project1-chart"></div>
+                </div>
+
+                <p class="wow fadeInUp" data-wow-delay="0.4s">Tools: <span style="color:#337ab7">Microsoft Excel, Forecasting Models</span></p>
+                <p class="wow fadeInUp" data-wow-delay="0.4s">Status: <span style="color:#337ab7">Completed (2020)</span></p>
+            </div>
+
+            <!-- Project 2: Solar Thermal Collector Analysis -->
+            <div class="slide">
+                <h1 class="wow fadeInDown" data-wow-delay="0.2s" style="color:#337ab7">SOLAR THERMAL COLLECTOR ANALYSIS</h1>
+                <p class="wow fadeInDown" data-wow-delay="0.2s">Market Performance Study</p>
+
+                <div class="project-description wow fadeInUp" data-wow-delay="0.2s">
+                    <p>Analysis of China's solar thermal collector market from 2015-2019, examining sales area, revenue, and market share trends to provide insights into product performance and market shifts.</p>
+                </div>
+
+                <!-- 图表容器 -->
+                <div class="chart-container wow fadeInUp" data-wow-delay="0.3s">
+                    <div id="project2-chart"></div>
+                </div>
+
+                <p class="wow fadeInUp" data-wow-delay="0.4s">Tools: <span style="color:#337ab7">ECharts, Data Analysis</span></p>
+                <p class="wow fadeInUp" data-wow-delay="0.4s">Status: <span style="color:#337ab7">Completed (2020)</span></p>
+            </div>
+
+            <!-- Project 3: Municipal Infrastructure Project -->
+            <div class="slide">
+                <h1 class="wow fadeInDown" data-wow-delay="0.2s" style="color:#337ab7">MUNICIPAL INFRASTRUCTURE PROJECT</h1>
+                <p class="wow fadeInDown" data-wow-delay="0.2s">Project Management & Timeline Coordination</p>
+
+                <div class="project-description wow fadeInUp" data-wow-delay="0.2s">
+                    <p>Comprehensive 776-day construction timeline for a major municipal building project with multi-phase coordination across architectural, mechanical, electrical, and structural disciplines.</p>
+                </div>
+
+                <!-- 图表容器 -->
+                <div class="chart-container wow fadeInUp" data-wow-delay="0.3s">
+                    <div id="project3-chart"></div>
+                </div>
+
+                <p class="wow fadeInUp" data-wow-delay="0.4s">Tools: <span style="color:#337ab7">ECharts, Gantt Chart</span></p>
+                <p class="wow fadeInUp" data-wow-delay="0.4s">Status: <span style="color:#337ab7">Completed</span></p>
+            </div>
+
+            <!-- Project 4: Customer Segmentation Analysis -->
+            <div class="slide">
+                <h1 class="wow fadeInDown" data-wow-delay="0.2s" style="color:#337ab7">CUSTOMER SEGMENTATION ANALYSIS</h1>
+                <p class="wow fadeInDown" data-wow-delay="0.2s">K-means Clustering & Marketing Insights</p>
+
+                <div class="project-description wow fadeInUp" data-wow-delay="0.2s">
+                    <p>Interactive analysis of customer segments using K-means clustering, examining engagement scores, response rates, and spending behavior to optimize marketing campaign effectiveness.</p>
+                </div>
+
+                <!-- 图表容器 -->
+                <div class="chart-container wow fadeInUp" data-wow-delay="0.3s">
+                    <div id="project4-chart"></div>
+                </div>
+
+                <p class="wow fadeInUp" data-wow-delay="0.4s">Tools: <span style="color:#337ab7">Tableau, ECharts, K-means Clustering</span></p>
+                <p class="wow fadeInUp" data-wow-delay="0.4s">Status: <span style="color:#337ab7">Completed</span></p>
+                <form style="margin-top: 10px;">
+                    <button formaction="https://public.tableau.com/app/profile/ye.yuan1114/viz/Busan543GroupWork/Dashboard1" type="submit" class="btn btn-lg">VIEW TABLEAU DASHBOARD</button>
+                </form>
+            </div>
+
+            <!-- Project 5: AI & E-commerce Research -->
+            <div class="slide">
+                <h1 class="wow fadeInDown" data-wow-delay="0.2s" style="color:#337ab7">AI & E-COMMERCE RESEARCH</h1>
+                <p class="wow fadeInDown" data-wow-delay="0.2s">Academic Research Project</p>
+
+                <div class="project-description wow fadeInUp" data-wow-delay="0.2s">
+                    <p>Research examining barriers preventing Chinese SMEs from adopting AI in e-commerce operations. Survey of 100 companies revealed key challenges including implementation costs, technical expertise, and data accessibility.</p>
+                </div>
+
+                <!-- 图表容器 -->
+                <div class="chart-container wow fadeInUp" data-wow-delay="0.3s">
+                    <div id="project5-chart"></div>
+                </div>
+
+                <p class="wow fadeInUp" data-wow-delay="0.4s">Tools: <span style="color:#337ab7">Survey Analysis, ECharts</span></p>
+                <p class="wow fadeInUp" data-wow-delay="0.4s">Status: <span style="color:#337ab7">Completed</span></p>
+            </div>
+        </div>
     </div>
-  </div>
- </div>
- <!-- end section -->
+    <!-- end section -->
+
+    <!-- begin section -->
+    <div class="section" data-anchor="contact">
+        <div class="content wow fadeInDown" data-wow-delay="0.2s">
+            <h1 style="color:#337ab7">CONTACT</h1><br>
+            <p>Whether you're interested in working with me or just want to say hello, I'd love to hear from you!</p>
+            <p>Tel: <span style="color:#337ab7">(64) 22-161-5681</span></p>
+            <p>Email: <span style="color:#337ab7">carolyuan66@gmail.com</span></p>
+            <br>
+            <div class="wow fadeInUp" data-wow-delay="0.5s">
+                <form method="get" action="https://www.linkedin.com/in/carol-yuan/">
+                    <button type="submit" id="submit" name="submit" class="btn btn-lg btn-margin"><i class="fa fa-linkedin fa-2x"></i>MY LINKEDIN</button></form>
+                <br>
+                <p>OR</p>
+                <div class="social-links">
+                    <span><a href="https://www.instagram.com/carol_yuane/" target="_blank"><i class="fa fa-instagram fa-2x"></i></a></span>
+                    <span><a href="https://github.com/Carolyuan66" target="_blank"><i class="fa fa-github fa-2x"></i></a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end section -->
 </div>
 <!-- end fullpage -->
+
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://s3-us-west-2.amazonaws.com/parallax-theme/assets/wow.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.7.4/jquery.fullPage.min.js"></script>
-</body>
-</html>
-<!-- partial -->
-  <script  src="./script.js"></script>
+
+<!-- 引入 Project 1 图表脚本 -->
+<script src="assets/js/charts/project1-chart.js"></script>
+
+<!-- 引入 Project 2-5 图表脚本 -->
+<script src="assets/js/charts/project2-chart.js"></script>
+<script src="assets/js/charts/project3-chart.js"></script>
+<script src="assets/js/charts/project4-chart.js"></script>
+<script src="assets/js/charts/project5-chart.js"></script>
+
+<!-- 图表初始化调用 -->
+<script>
+    $(document).ready(function() {
+        // 延迟初始化，确保DOM完全加载
+        setTimeout(function() {
+            if (typeof initProject1Chart === 'function') {
+                initProject1Chart();
+            }
+        }, 500);
+
+        // 监听 fullPage.js 的横向滑动事件
+        $('#fullpage').on('afterSlideLoad', function(section, origin, destination, direction) {
+            // 根据slide索引初始化对应的图表
+            setTimeout(function() {
+                switch(destination.index) {
+                    case 0: // Project 1
+                        if (typeof initProject1Chart === 'function') {
+                            initProject1Chart();
+                        }
+                        break;
+                    case 1: // Project 2
+                        if (typeof initProject2Chart === 'function') {
+                            initProject2Chart();
+                        }
+                        break;
+                    case 2: // Project 3
+                        if (typeof initProject3Chart === 'function') {
+                            initProject3Chart();
+                        }
+                        break;
+                    case 3: // Project 4
+                        if (typeof initProject4Chart === 'function') {
+                            initProject4Chart();
+                        }
+                        break;
+                    case 4: // Project 5
+                        if (typeof initProject5Chart === 'function') {
+                            initProject5Chart();
+                        }
+                        break;
+                }
+            }, 100);
+        });
+
+        // 响应式调整
+        window.addEventListener('resize', function() {
+            // 调整所有已初始化的图表
+            if (typeof project1ChartInstance !== 'undefined' && project1ChartInstance) {
+                project1ChartInstance.resize();
+            }
+            if (typeof project2ChartInstance !== 'undefined' && project2ChartInstance) {
+                project2ChartInstance.resize();
+            }
+            if (typeof project3ChartInstance !== 'undefined' && project3ChartInstance) {
+                project3ChartInstance.resize();
+            }
+            if (typeof project4ChartInstance !== 'undefined' && project4ChartInstance) {
+                project4ChartInstance.resize();
+            }
+            if (typeof project5ChartInstance !== 'undefined' && project5ChartInstance) {
+                project5ChartInstance.resize();
+            }
+        });
+    });
+</script>
+
+<script src="assets/js/script.js"></script>
 </body>
 </html>
