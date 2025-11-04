@@ -24,32 +24,24 @@ function initProject1Chart() {
             trigger: 'axis',
             axisPointer: {
                 type: 'cross',
-                label: {
-                    backgroundColor: '#283b56'
+                crossStyle: {
+                    color: '#999'
                 }
             },
             formatter: function(params) {
                 let result = `<b>${params[0].axisValue}</b><br/>`;
                 params.forEach(item => {
-                    const status = item.seriesName.includes('Projected') ? '📈 Projected' : '✅ Actual';
-                    result += `${status} ${item.seriesName}: <b>${item.value}</b> 万人<br/>`;
-
-                    // 计算增长率（如果有前一年数据）
-                    if (item.dataIndex > 0 && item.value && params[0].data[item.dataIndex - 1]) {
-                        const prevValue = item.seriesType === 'line' ?
-                            (item.seriesIndex === 0 ? [30, 80, 160, 220.7, 496.1][item.dataIndex - 1] : null) :
-                            null;
-                        if (prevValue && item.seriesIndex === 0) {
-                            const growthRate = ((item.value - prevValue) / prevValue * 100).toFixed(1);
-                            result += `&nbsp;&nbsp;📊 Growth Rate: ${growthRate > 0 ? '+' : ''}${growthRate}%<br/>`;
-                        }
+                    if (item.seriesName === 'User Count') {
+                        result += `📊 ${item.seriesName}: <b>${item.value}</b> 万人<br/>`;
+                    } else if (item.seriesName === 'Growth Rate') {
+                        result += `📈 ${item.seriesName}: <b>${item.value}%</b><br/>`;
                     }
                 });
                 return result;
             }
         },
         legend: {
-            data: ['Historical Data', 'Market Projection'],
+            data: ['User Count', 'Growth Rate'],
             top: '12%',
             textStyle: {
                 fontSize: 13,
@@ -69,7 +61,8 @@ function initProject1Chart() {
                 },
                 saveAsImage: {
                     title: 'Save as Image',
-                    name: 'genetic-testing-market-analysis'
+                    name: 'genetic-testing-market-analysis',
+                    pixelRatio: 2
                 }
             },
             right: '5%',
@@ -84,8 +77,10 @@ function initProject1Chart() {
         },
         xAxis: {
             type: 'category',
-            boundaryGap: false,
-            data: ['2016', '2017', '2018', '2019', '2020', '2021', '2022'],
+            data: ['2016', '2017', '2018', '2019', '2020', '2021E', '2022E'],
+            axisPointer: {
+                type: 'shadow'
+            },
             axisLine: {
                 lineStyle: {
                     color: '#999'
@@ -96,120 +91,120 @@ function initProject1Chart() {
                 color: '#666'
             }
         },
-        yAxis: {
-            type: 'value',
-            name: 'Users (10,000)',
-            nameTextStyle: {
-                fontSize: 13,
-                color: '#666'
-            },
-            axisLine: {
-                show: true,
-                lineStyle: {
-                    color: '#999'
+        yAxis: [
+            {
+                type: 'value',
+                name: 'User Count (万人)',
+                nameTextStyle: {
+                    fontSize: 13,
+                    color: '#666',
+                    padding: [0, 0, 0, -10]
+                },
+                position: 'left',
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: '#5470c6'
+                    }
+                },
+                axisLabel: {
+                    formatter: '{value}',
+                    fontSize: 11,
+                    color: '#666'
+                },
+                splitLine: {
+                    lineStyle: {
+                        type: 'dashed',
+                        color: '#e0e0e0'
+                    }
                 }
             },
-            axisLabel: {
-                formatter: '{value}',
-                fontSize: 12,
-                color: '#666'
-            },
-            splitLine: {
-                lineStyle: {
-                    type: 'dashed',
-                    color: '#e0e0e0'
+            {
+                type: 'value',
+                name: 'Growth Rate (%)',
+                nameTextStyle: {
+                    fontSize: 13,
+                    color: '#666',
+                    padding: [0, 0, 0, 10]
+                },
+                position: 'right',
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: '#91cc75'
+                    }
+                },
+                axisLabel: {
+                    formatter: '{value}%',
+                    fontSize: 11,
+                    color: '#666'
+                },
+                splitLine: {
+                    show: false
                 }
             }
-        },
+        ],
         series: [
             {
-                name: 'Historical Data',
-                type: 'line',
-                data: [30, 80, 160, 220.7, 496.1, null, null],
-                smooth: true,
-                lineStyle: {
-                    width: 4,
-                    color: '#5470c6',
+                name: 'User Count',
+                type: 'bar',
+                tooltip: {
+                    valueFormatter: function (value) {
+                        return value + ' 万人';
+                    }
+                },
+                data: [
+                    { value: 10, itemStyle: { color: '#5470c6' } },
+                    { value: 35, itemStyle: { color: '#5470c6' } },
+                    { value: 104.3, itemStyle: { color: '#5470c6' } },
+                    { value: 220.7, itemStyle: { color: '#5470c6' } },
+                    { value: 496.1, itemStyle: { color: '#5470c6' } },
+                    { value: 1065.5, itemStyle: { color: '#91cc75' } },  // 预测数据用不同颜色
+                    { value: 2070.3, itemStyle: { color: '#91cc75' } }   // 预测数据用不同颜色
+                ],
+                itemStyle: {
+                    borderRadius: [5, 5, 0, 0],
                     shadowColor: 'rgba(84, 112, 198, 0.3)',
                     shadowBlur: 10,
                     shadowOffsetY: 5
                 },
-                itemStyle: {
-                    color: '#5470c6',
-                    borderWidth: 3,
-                    borderColor: '#fff'
-                },
-                symbol: 'circle',
-                symbolSize: 10,
-                areaStyle: {
-                    color: {
-                        type: 'linear',
-                        x: 0,
-                        y: 0,
-                        x2: 0,
-                        y2: 1,
-                        colorStops: [{
-                            offset: 0,
-                            color: 'rgba(84, 112, 198, 0.3)'
-                        }, {
-                            offset: 1,
-                            color: 'rgba(84, 112, 198, 0.05)'
-                        }]
-                    }
-                },
                 emphasis: {
-                    focus: 'series',
                     itemStyle: {
-                        borderWidth: 4,
-                        shadowBlur: 10,
+                        shadowBlur: 15,
                         shadowColor: 'rgba(84, 112, 198, 0.5)'
                     }
                 },
-                markPoint: {
-                    data: [
-                        {
-                            type: 'max',
-                            name: '2020 Peak',
-                            itemStyle: {
-                                color: '#ee6666'
-                            },
-                            label: {
-                                formatter: '2020 Peak\n{c} 万人'
-                            }
-                        }
-                    ],
-                    symbolSize: 60,
-                    label: {
-                        fontSize: 11,
-                        fontWeight: 'bold'
-                    }
-                },
-                markLine: {
-                    silent: true,
-                    lineStyle: {
-                        color: '#91cc75',
-                        type: 'dashed'
-                    },
-                    data: [
-                        {
-                            type: 'average',
-                            name: 'Average',
-                            label: {
-                                formatter: 'Avg: {c} 万人',
-                                fontSize: 11
-                            }
-                        }
-                    ]
+                barWidth: '45%',
+                label: {
+                    show: true,
+                    position: 'top',
+                    formatter: '{c}',
+                    fontSize: 11,
+                    fontWeight: 'bold'
                 }
             },
             {
-                name: 'Market Projection',
+                name: 'Growth Rate',
                 type: 'line',
-                data: [null, null, null, null, 496.1, 650, 850],
+                yAxisIndex: 1,
+                tooltip: {
+                    valueFormatter: function (value) {
+                        return value + '%';
+                    }
+                },
+                // 计算增长率：((当年-上一年)/上一年)*100
+                data: [
+                    null,  // 2016年没有前一年数据
+                    248.7,  // (35-10)/10*100 = 250%
+                    198.5,  // (104.3-35)/35*100
+                    111.5,  // (220.7-104.3)/104.3*100
+                    124.8,  // (496.1-220.7)/220.7*100
+                    114.8,  // 预测值
+                    94.3    // 预测值
+                ],
                 smooth: true,
                 lineStyle: {
-                    width: 4,
-                    type: 'dashed',
+                    width: 3,
                     color: '#91cc75',
                     shadowColor: 'rgba(145, 204, 117, 0.3)',
                     shadowBlur: 10,
@@ -220,24 +215,8 @@ function initProject1Chart() {
                     borderWidth: 3,
                     borderColor: '#fff'
                 },
-                symbol: 'diamond',
-                symbolSize: 10,
-                areaStyle: {
-                    color: {
-                        type: 'linear',
-                        x: 0,
-                        y: 0,
-                        x2: 0,
-                        y2: 1,
-                        colorStops: [{
-                            offset: 0,
-                            color: 'rgba(145, 204, 117, 0.2)'
-                        }, {
-                            offset: 1,
-                            color: 'rgba(145, 204, 117, 0.05)'
-                        }]
-                    }
-                },
+                symbol: 'circle',
+                symbolSize: 8,
                 emphasis: {
                     focus: 'series',
                     itemStyle: {
@@ -245,34 +224,19 @@ function initProject1Chart() {
                         shadowBlur: 10,
                         shadowColor: 'rgba(145, 204, 117, 0.5)'
                     }
-                }
-            }
-        ],
-        // 添加数据区域缩放
-        dataZoom: [
-            {
-                type: 'inside',
-                start: 0,
-                end: 100
-            },
-            {
-                start: 0,
-                end: 100,
-                handleIcon: 'path://M10.7,11.9H9.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z',
-                handleSize: '80%',
-                handleStyle: {
-                    color: '#fff',
-                    shadowBlur: 3,
-                    shadowColor: 'rgba(0, 0, 0, 0.6)',
-                    shadowOffsetX: 2,
-                    shadowOffsetY: 2
+                },
+                label: {
+                    show: true,
+                    position: 'top',
+                    formatter: '{c}%',
+                    fontSize: 10,
+                    color: '#91cc75'
                 }
             }
         ],
         textStyle: {
             fontFamily: 'Arial, sans-serif'
         },
-        // 添加背景色
         backgroundColor: '#fff'
     };
 
@@ -282,6 +246,9 @@ function initProject1Chart() {
     window.addEventListener('resize', function() {
         myChart.resize();
     });
+
+    // 保存实例供外部调用
+    window.project1ChartInstance = myChart;
 
     return myChart;
 }
