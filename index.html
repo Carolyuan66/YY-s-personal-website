@@ -19,7 +19,11 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        #project1-chart {
+        #project1-chart,
+        #project2-chart,
+        #project3-chart,
+        #project4-chart,
+        #project5-chart {
             width: 100%;
             height: 100%;
         }
@@ -61,7 +65,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/parallax-theme/assets/animate.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/styles.css">
+<!--    <link rel="stylesheet" href="assets/css/styles.css">-->
 
     <!-- ECharts 库 -->
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
@@ -306,61 +310,109 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.7.4/jquery.fullPage.min.js"></script>
 
 <!-- 引入 Project 1 图表脚本 -->
-<script src="assets/js/charts/project1-chart.js"></script>
+<script src="assets/js/charts/project1-chart.js?v=7.0"></script>
 
 <!-- 引入 Project 2-5 图表脚本 -->
-<script src="assets/js/charts/project2-chart.js"></script>
-<script src="assets/js/charts/project3-chart.js"></script>
-<script src="assets/js/charts/project4-chart.js"></script>
-<script src="assets/js/charts/project5-chart.js"></script>
+<script src="assets/js/charts/project2-chart.js?v=7.0"></script>
+<script src="assets/js/charts/project3-chart.js?v=7.0"></script>
+<script src="assets/js/charts/project4-chart.js?v=7.0"></script>
+<script src="assets/js/charts/project5-chart.js?v=7.0"></script>
 
 <!-- 图表初始化调用 -->
 <script>
-    $(document).ready(function() {
-        // 延迟初始化，确保DOM完全加载
-        setTimeout(function() {
-            if (typeof initProject1Chart === 'function') {
-                initProject1Chart();
-            }
-        }, 500);
+    // 用于跟踪已初始化的图表
+    const initializedCharts = {
+        project1: false,
+        project2: false,
+        project3: false,
+        project4: false,
+        project5: false
+    };
 
-        // 监听 fullPage.js 的横向滑动事件
-        $('#fullpage').on('afterSlideLoad', function(section, origin, destination, direction) {
-            // 根据slide索引初始化对应的图表
-            setTimeout(function() {
-                switch(destination.index) {
-                    case 0: // Project 1
-                        if (typeof initProject1Chart === 'function') {
+    // 初始化图表的函数
+    function initChartByIndex(index) {
+
+        setTimeout(function() {
+            switch(index) {
+                case 0: // Project 1
+                    if (!initializedCharts.project1) {
+                        const container1 = document.getElementById('project1-chart');
+                        if (container1 && typeof initProject1Chart === 'function') {
                             initProject1Chart();
+                            initializedCharts.project1 = true;
                         }
-                        break;
-                    case 1: // Project 2
-                        if (typeof initProject2Chart === 'function') {
+                    }
+                    break;
+                case 1: // Project 2
+                    if (!initializedCharts.project2) {
+                        const container2 = document.getElementById('project2-chart');
+                        if (container2 && typeof initProject2Chart === 'function') {
                             initProject2Chart();
+                            initializedCharts.project2 = true;
                         }
-                        break;
-                    case 2: // Project 3
-                        if (typeof initProject3Chart === 'function') {
+                    }
+                    break;
+                case 2: // Project 3
+                    if (!initializedCharts.project3) {
+                        const container3 = document.getElementById('project3-chart');
+                        if (container3 && typeof initProject3Chart === 'function') {
                             initProject3Chart();
+                            initializedCharts.project3 = true;
                         }
-                        break;
-                    case 3: // Project 4
-                        if (typeof initProject4Chart === 'function') {
+                    }
+                    break;
+                case 3: // Project 4
+                    if (!initializedCharts.project4) {
+                        const container4 = document.getElementById('project4-chart');
+                        if (container4 && typeof initProject4Chart === 'function') {
                             initProject4Chart();
+                            initializedCharts.project4 = true;
                         }
-                        break;
-                    case 4: // Project 5
-                        if (typeof initProject5Chart === 'function') {
+                    }
+                    break;
+                case 4: // Project 5
+                    if (!initializedCharts.project5) {
+                        const container5 = document.getElementById('project5-chart');
+                        if (container5 && typeof initProject5Chart === 'function') {
                             initProject5Chart();
+                            initializedCharts.project5 = true;
                         }
-                        break;
-                }
-            }, 100);
+                    }
+                    break;
+            }
+        }, 300);
+    }
+
+    // 强制初始化所有图表
+    function initAllCharts() {
+        for(let i = 0; i < 5; i++) {
+            initChartByIndex(i);
+        }
+    }
+
+    $(document).ready(function() {
+
+        // 初始化Project 1
+        setTimeout(function() {
+            initChartByIndex(0);
+        }, 1000);
+
+        // 自动初始化所有图表（延迟5秒，给DOM充足时间加载）
+        setTimeout(function() {
+            initAllCharts();
+        }, 3000);
+
+        // 监听多个事件
+        $('#fullpage').on('afterSlideLoad', function(section, origin, destination, direction) {
+            initChartByIndex(destination.index);
+        });
+
+        $('#fullpage').on('onSlideLeave', function(section, origin, destination, direction) {
+            initChartByIndex(destination.index);
         });
 
         // 响应式调整
         window.addEventListener('resize', function() {
-            // 调整所有已初始化的图表
             if (typeof project1ChartInstance !== 'undefined' && project1ChartInstance) {
                 project1ChartInstance.resize();
             }
@@ -377,6 +429,11 @@
                 project5ChartInstance.resize();
             }
         });
+
+        // 将函数暴露到全局
+        window.initChartByIndex = initChartByIndex;
+        window.initAllCharts = initAllCharts;
+
     });
 </script>
 

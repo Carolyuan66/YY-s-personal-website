@@ -3,6 +3,10 @@
 
 function initProject4Chart() {
     const chartDom = document.getElementById('project4-chart');
+    if (!chartDom) {
+        return null;
+    }
+
     const myChart = echarts.init(chartDom);
 
     // 模拟客户细分数据
@@ -137,6 +141,8 @@ function initProject4Chart() {
     window.addEventListener('resize', function() {
         myChart.resize();
     });
+
+    window.project4ChartInstance = myChart;
 
     return myChart;
 }
