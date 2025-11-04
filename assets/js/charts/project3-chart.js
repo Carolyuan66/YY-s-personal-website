@@ -3,6 +3,10 @@
 
 function initProject3Chart() {
     const chartDom = document.getElementById('project3-chart');
+    if (!chartDom) {
+        return null;
+    }
+
     const myChart = echarts.init(chartDom);
 
     // 模拟776天的项目时间线
@@ -142,6 +146,8 @@ function initProject3Chart() {
     window.addEventListener('resize', function() {
         myChart.resize();
     });
+
+    window.project3ChartInstance = myChart;
 
     return myChart;
 }

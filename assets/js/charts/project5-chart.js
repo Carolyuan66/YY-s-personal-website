@@ -3,6 +3,10 @@
 
 function initProject5Chart() {
     const chartDom = document.getElementById('project5-chart');
+    if (!chartDom) {
+        return null;
+    }
+
     const myChart = echarts.init(chartDom);
 
     const option = {
@@ -117,6 +121,8 @@ function initProject5Chart() {
     window.addEventListener('resize', function() {
         myChart.resize();
     });
+
+    window.project5ChartInstance = myChart;
 
     return myChart;
 }

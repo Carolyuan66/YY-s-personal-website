@@ -3,6 +3,12 @@
 
 function initProject2Chart() {
     const chartDom = document.getElementById('project2-chart');
+
+    // 检查容器是否存在
+    if (!chartDom) {
+        return null;
+    }
+
     const myChart = echarts.init(chartDom);
 
     const option = {
@@ -178,10 +184,10 @@ function initProject2Chart() {
                         y2: 1,
                         colorStops: [{
                             offset: 0,
-                            color: '#5470c6' // 顶部颜色
+                            color: '#5470c6'
                         }, {
                             offset: 1,
-                            color: '#91a5d8' // 底部颜色
+                            color: '#91a5d8'
                         }]
                     },
                     borderRadius: [5, 5, 0, 0],
@@ -372,7 +378,6 @@ function initProject2Chart() {
                 }
             }
         ],
-        // 添加数据区域缩放
         dataZoom: [
             {
                 type: 'inside',
@@ -393,6 +398,10 @@ function initProject2Chart() {
     window.addEventListener('resize', function() {
         myChart.resize();
     });
+
+    // 保存实例供外部调用
+    window.project2ChartInstance = myChart;
+
 
     return myChart;
 }
