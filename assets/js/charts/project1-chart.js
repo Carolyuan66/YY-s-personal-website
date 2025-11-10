@@ -94,7 +94,7 @@ function initProject1Chart() {
         yAxis: [
             {
                 type: 'value',
-                name: 'User Count (万人)',
+                name: 'User Count (10,000)',
                 nameTextStyle: {
                     fontSize: 13,
                     color: '#666',
