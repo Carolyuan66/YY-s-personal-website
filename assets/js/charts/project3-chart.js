@@ -1,5 +1,5 @@
 // Project 3: Municipal Infrastructure Project Management (Minimal Image Display)
-// 市政基础设施项目管理 - 极简图片展示（只有图片和文字）
+// 市政基础设施项目管理 - 极简图片展示(只有图片和文字)
 
 function initProject3Chart() {
     const chartDom = document.getElementById('project3-chart');
@@ -36,8 +36,12 @@ function initProject3Chart() {
                 <p class="status-info">Status: <span class="highlight">Completed</span></p>
             </div>
         </div>
+    `;
 
-        <!-- Lightbox Modal for full-screen view -->
+    chartDom.innerHTML = chartHTML;
+
+    // Create lightbox modal and append to body (CRITICAL: not in chart container!)
+    const lightboxHTML = `
         <div id="lightbox-modal" class="lightbox-modal" onclick="closeLightbox()">
             <span class="close-lightbox">&times;</span>
             <img class="lightbox-content" id="lightbox-image">
@@ -45,7 +49,14 @@ function initProject3Chart() {
         </div>
     `;
 
-    chartDom.innerHTML = chartHTML;
+    // Remove existing lightbox if any
+    const existingLightbox = document.getElementById('lightbox-modal');
+    if (existingLightbox) {
+        existingLightbox.remove();
+    }
+
+    // Append lightbox directly to body
+    document.body.insertAdjacentHTML('beforeend', lightboxHTML);
 
     // Add minimal styles
     addMinimalStyles();
@@ -149,15 +160,16 @@ function addMinimalStyles() {
         /* Lightbox Modal */
         .lightbox-modal {
             display: none;
-            position: fixed;
+            position: fixed !important;
             z-index: 9999;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: auto;
+            overflow: hidden;  /* Changed from auto to hidden */
             background-color: rgba(0, 0, 0, 0.95);
             animation: fadeIn 0.3s ease;
+            inset: 0 !important;
         }
 
         @keyframes fadeIn {
@@ -183,12 +195,6 @@ function addMinimalStyles() {
             box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
             animation: zoomIn 0.3s ease;
         }
-        
-        /* Force full viewport coverage */
-        .lightbox-modal {
-            position: fixed !important;
-            inset: 0 !important;
-        }
 
         @keyframes zoomIn {
             from { 
@@ -200,7 +206,6 @@ function addMinimalStyles() {
                 opacity: 1; 
             }
         }
-
 
         .close-lightbox {
             position: absolute;
@@ -284,7 +289,9 @@ function openLightbox() {
     if (modal && img && modalImg) {
         modal.classList.add('active');
         modalImg.src = img.src;
+        // Enhanced scroll lock
         document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
     }
 }
 
@@ -292,7 +299,9 @@ function closeLightbox() {
     const modal = document.getElementById('lightbox-modal');
     if (modal) {
         modal.classList.remove('active');
+        // Restore scroll
         document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
     }
 }
 
