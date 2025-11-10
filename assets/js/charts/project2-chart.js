@@ -1,5 +1,5 @@
-// Project 2: Solar Thermal Collector Market Analysis (Matching Project 1 - No Toggle Buttons)
-// Solar Water Heater Market Analysis - Single View with Toolbox Only
+// Project 2: Solar Thermal Collector Market Analysis (Adjusted Toolbox)
+// Solar Water Heater Market Analysis - Toolbox Positioned Higher with Top Tooltips
 
 function initProject2Chart() {
     const chartDom = document.getElementById('project2-chart');
@@ -84,7 +84,7 @@ function initProject2Chart() {
                 }
             },
             right: '5%',
-            top: '10%'
+            top: '6%',
         },
         grid: {
             left: '3%',
