@@ -16,15 +16,17 @@ function initProject2Chart() {
             text: 'China Solar Thermal Collector Market',
             subtext: 'Sales Performance Analysis 2015-2019',
             left: 'center',
+            top: '2%',
             textStyle: {
-                fontSize: 20,
+                fontSize: 17,
                 fontWeight: 'bold',
                 color: '#333'
             },
             subtextStyle: {
-                fontSize: 14,
+                fontSize: 11,
                 color: '#666'
-            }
+            },
+            itemGap: 5
         },
         tooltip: {
             trigger: 'axis',
@@ -60,14 +62,14 @@ function initProject2Chart() {
                 'Flat-plate Share in Total Market',
                 'Himin Share in Flat-plate Market'
             ],
-            top: '12%',
+            top: '14%',
             textStyle: {
-                fontSize: 10,
+                fontSize: 8,
                 fontWeight: 500
             },
-            itemGap: 8,
-            itemWidth: 20,
-            itemHeight: 10
+            itemGap: 5,
+            itemWidth: 16,
+            itemHeight: 8
         },
         toolbox: {
             show: true,
@@ -93,7 +95,7 @@ function initProject2Chart() {
             left: '5%',
             right: '4%',
             bottom: '3%',
-            top: '28%',
+            top: '27%',
             containLabel: true
         },
         xAxis: {
