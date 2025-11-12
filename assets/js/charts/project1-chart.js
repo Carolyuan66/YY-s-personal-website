@@ -68,7 +68,7 @@ function initProject1Chart() {
                 }
             },
             right: '5%',
-            top: '5%'
+            top: '1%'
         },
         grid: {
             left: '5%',
