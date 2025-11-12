@@ -10,15 +10,17 @@ function initProject1Chart() {
             text: 'China Consumer Genetic Testing Market',
             subtext: 'User Growth Analysis 2016-2022',
             left: 'center',
+            top: '2%',
             textStyle: {
-                fontSize: 20,
+                fontSize: 17,
                 fontWeight: 'bold',
                 color: '#333'
             },
             subtextStyle: {
-                fontSize: 14,
+                fontSize: 11,
                 color: '#666'
-            }
+            },
+            itemGap: 5
         },
         tooltip: {
             trigger: 'axis',
@@ -32,7 +34,7 @@ function initProject1Chart() {
                 let result = `<b>${params[0].axisValue}</b><br/>`;
                 params.forEach(item => {
                     if (item.seriesName === 'User Count') {
-                        result += `📊 ${item.seriesName}: <b>${item.value}</b> 万人<br/>`;
+                        result += `📊 ${item.seriesName}: <b>${item.value}</b> 10,000 people<br/>`;
                     } else if (item.seriesName === 'Growth Rate') {
                         result += `📈 ${item.seriesName}: <b>${item.value}%</b><br/>`;
                     }
@@ -42,9 +44,9 @@ function initProject1Chart() {
         },
         legend: {
             data: ['User Count', 'Growth Rate'],
-            top: '12%',
+            top: '14%',
             textStyle: {
-                fontSize: 13,
+                fontSize: 10,
                 fontWeight: 500
             }
         },
@@ -72,7 +74,7 @@ function initProject1Chart() {
             left: '5%',
             right: '4%',
             bottom: '3%',
-            top: '25%',
+            top: '24%',
             containLabel: true
         },
         xAxis: {
@@ -150,7 +152,7 @@ function initProject1Chart() {
                 type: 'bar',
                 tooltip: {
                     valueFormatter: function (value) {
-                        return value + ' 万人';
+                        return value + ' 10,000 people';
                     }
                 },
                 data: [
