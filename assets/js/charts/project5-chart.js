@@ -1,76 +1,54 @@
-// Project 5: E-commerce and AI Integration Research for Chinese SMEs
-// 电子商务与AI集成研究 - 极简图片展示(只有图片和文字)
+// Project 5: AI & E-commerce Research
+// AI与电子商务研究 - 图片展示（响应式优化）
 
 function initProject5Chart() {
     const chartDom = document.getElementById('project5-chart');
 
-    // Check if container exists
     if (!chartDom) {
         console.error('Chart container #project5-chart not found');
         return null;
     }
 
-    // Clear any existing content
     chartDom.innerHTML = '';
 
-    // Create minimal image display (only image + text)
     const chartHTML = `
-        <div class="project5-minimal-container">
-            <!-- Main Research Poster Image -->
-            <div class="poster-image-wrapper">
-                <img 
-                    src="assets/images/project5-poster.png" 
-                    alt="E-commerce and AI Integration Research Poster"
-                    class="poster-image"
-                    id="poster-main-image"
-                    onclick="openProject5Lightbox()"
-                >
-                <div class="image-hover-overlay">
-                    <span class="zoom-hint">🔍 Click to enlarge</span>
-                </div>
-            </div>
-
-            <!-- Optional: Tool and Status Info -->
-            <div class="project-footer">
-                <p class="tool-info">Tools: <span class="highlight">Academic Research, Survey Analysis</span></p>
-                <p class="status-info">Status: <span class="highlight">Published</span></p>
+        <div class="poster-image-wrapper">
+            <img 
+                src="assets/images/project5-poster.png" 
+                alt="E-commerce and AI Integration Research Poster"
+                class="poster-image"
+                id="poster-main-image"
+                onclick="openProject5Lightbox()"
+            >
+            <div class="image-hover-overlay">
+                <span class="zoom-hint">🔍 Click to enlarge</span>
             </div>
         </div>
     `;
 
     chartDom.innerHTML = chartHTML;
 
-    // Create lightbox modal and append to body (CRITICAL: not in chart container!)
     const lightboxHTML = `
         <div id="project5-lightbox-modal" class="lightbox-modal" onclick="closeProject5Lightbox()">
             <span class="close-lightbox">&times;</span>
             <img class="lightbox-content" id="project5-lightbox-image">
-            <div class="lightbox-caption">Obstacles for China's SMEs in E-commerce and AI Integration</div>
         </div>
     `;
 
-    // Remove existing lightbox if any
     const existingLightbox = document.getElementById('project5-lightbox-modal');
     if (existingLightbox) {
         existingLightbox.remove();
     }
 
-    // Append lightbox directly to body
     document.body.insertAdjacentHTML('beforeend', lightboxHTML);
-
-    // Add minimal styles
     addProject5MinimalStyles();
 
-    // Save instance marker
     window.project5ChartInstance = { type: 'minimal-image', initialized: true };
-
-    console.log('✅ Project 5 chart initialized (minimal version)');
+    console.log('✅ Project 5 chart initialized');
     return true;
 }
 
-// Add minimal styles
 function addProject5MinimalStyles() {
-    // Check if styles already added
     if (document.getElementById('project5-minimal-styles')) {
         return;
     }
@@ -78,28 +56,31 @@ function addProject5MinimalStyles() {
     const styleSheet = document.createElement('style');
     styleSheet.id = 'project5-minimal-styles';
     styleSheet.textContent = `
-        /* Minimal Container */
         .project5-minimal-container {
             width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
+            max-width: none;
+            margin: 0;
+            padding: 0;
         }
 
-        /* Poster Image Wrapper */
         .poster-image-wrapper {
             position: relative;
             width: 100%;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            height: 100%;
+            background: transparent;
+            border-radius: 0;
+            box-shadow: none;
             overflow: hidden;
             cursor: pointer;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .poster-image-wrapper:hover {
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-            transform: translateY(-3px);
+            box-shadow: none;
+            transform: translateY(-2px);
         }
 
         .poster-image-wrapper:hover .image-hover-overlay {
@@ -108,18 +89,18 @@ function addProject5MinimalStyles() {
 
         .poster-image {
             width: 100%;
-            height: auto;
+            height: 100%;
             display: block;
+            object-fit: contain;
         }
 
-        /* Hover Overlay */
         .image-hover-overlay {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(76, 175, 80, 0.1);
+            background: rgba(51, 122, 183, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -129,32 +110,13 @@ function addProject5MinimalStyles() {
         }
 
         .zoom-hint {
-            background: rgba(76, 175, 80, 0.95);
+            background: rgba(51, 122, 183, 0.95);
             color: white;
             padding: 12px 28px;
             border-radius: 8px;
             font-size: 15px;
             font-weight: 500;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Project Footer (Tool and Status Info) */
-        .project-footer {
-            text-align: center;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        .project-footer p {
-            margin: 8px 0;
-            color: #666;
-            font-size: 14px;
-        }
-
-        .project-footer .highlight {
-            color: #4caf50;
-            font-weight: 600;
         }
 
         /* Lightbox Modal */
@@ -166,7 +128,7 @@ function addProject5MinimalStyles() {
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;  /* Changed from auto to hidden */
+            overflow: hidden;
             background-color: rgba(0, 0, 0, 0.95);
             animation: fadeIn 0.3s ease;
             inset: 0 !important;
@@ -220,20 +182,29 @@ function addProject5MinimalStyles() {
         }
 
         .close-lightbox:hover {
-            color: #4caf50;
+            color: #337ab7;
             transform: scale(1.1);
         }
 
-        .lightbox-caption {
-            text-align: center;
-            color: white;
-            padding: 20px;
-            margin-top: 15px;
-            font-size: 16px;
+        @media (max-width: 1366px) {
+            .project5-minimal-container {
+                max-width: 95%;
+                padding: 0 20px;
+            }
         }
 
-        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .project5-minimal-container {
+                max-width: 90%;
+                padding: 0 15px;
+            }
+        }
+
         @media (max-width: 768px) {
+            .project5-minimal-container {
+                padding: 0 12px;
+            }
+            
             .poster-image-wrapper {
                 border-radius: 8px;
             }
@@ -243,27 +214,28 @@ function addProject5MinimalStyles() {
                 font-size: 13px;
             }
 
-            .lightbox-content {
-                max-width: 98%;
-                max-height: 80vh;
-            }
-
             .close-lightbox {
                 top: 10px;
                 right: 15px;
                 font-size: 36px;
             }
+        }
 
-            .project-footer {
-                margin-top: 15px;
+        @media (max-width: 576px) {
+            .project5-minimal-container {
+                padding: 0 8px;
+            }
+            
+            .poster-image-wrapper {
+                border-radius: 6px;
             }
 
-            .project-footer p {
-                font-size: 13px;
+            .zoom-hint {
+                padding: 8px 16px;
+                font-size: 12px;
             }
         }
 
-        /* Print Styles */
         @media print {
             .lightbox-modal,
             .image-hover-overlay {
@@ -280,7 +252,6 @@ function addProject5MinimalStyles() {
     document.head.appendChild(styleSheet);
 }
 
-// Lightbox functions for Project 5
 function openProject5Lightbox() {
     const modal = document.getElementById('project5-lightbox-modal');
     const img = document.getElementById('poster-main-image');
@@ -289,9 +260,14 @@ function openProject5Lightbox() {
     if (modal && img && modalImg) {
         modal.classList.add('active');
         modalImg.src = img.src;
-        // Enhanced scroll lock
         document.body.style.overflow = 'hidden';
         document.documentElement.style.overflow = 'hidden';
+
+        // 禁用fullPage.js滚动
+        if (typeof $.fn.fullpage !== 'undefined' && $.fn.fullpage.setAllowScrolling) {
+            $.fn.fullpage.setAllowScrolling(false);
+            $.fn.fullpage.setKeyboardScrolling(false);
+        }
     }
 }
 
@@ -299,24 +275,26 @@ function closeProject5Lightbox() {
     const modal = document.getElementById('project5-lightbox-modal');
     if (modal) {
         modal.classList.remove('active');
-        // Restore scroll
         document.body.style.overflow = '';
         document.documentElement.style.overflow = '';
+
+        // 恢复fullPage.js滚动
+        if (typeof $.fn.fullpage !== 'undefined' && $.fn.fullpage.setAllowScrolling) {
+            $.fn.fullpage.setAllowScrolling(true);
+            $.fn.fullpage.setKeyboardScrolling(true);
+        }
     }
 }
 
-// Make functions globally available
 window.openProject5Lightbox = openProject5Lightbox;
 window.closeProject5Lightbox = closeProject5Lightbox;
 
-// Keyboard support
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
         closeProject5Lightbox();
     }
 });
 
-// Auto-initialize after page load
 if (typeof document !== 'undefined') {
     document.addEventListener('DOMContentLoaded', function() {
         const container = document.getElementById('project5-chart');
@@ -328,7 +306,6 @@ if (typeof document !== 'undefined') {
     });
 }
 
-// Export for external use
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { initProject5Chart };
 }

@@ -62,9 +62,12 @@ function initProject2Chart() {
             ],
             top: '12%',
             textStyle: {
-                fontSize: 13,
+                fontSize: 10,
                 fontWeight: 500
-            }
+            },
+            itemGap: 8,
+            itemWidth: 20,
+            itemHeight: 10
         },
         toolbox: {
             show: true,
@@ -84,13 +87,13 @@ function initProject2Chart() {
                 }
             },
             right: '5%',
-            top: '6%',
+            top: '1%',
         },
         grid: {
-            left: '3%',
+            left: '5%',
             right: '4%',
             bottom: '3%',
-            top: '25%',
+            top: '28%',
             containLabel: true
         },
         xAxis: {
