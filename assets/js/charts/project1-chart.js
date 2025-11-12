@@ -66,10 +66,10 @@ function initProject1Chart() {
                 }
             },
             right: '5%',
-            top: '10%'
+            top: '5%'
         },
         grid: {
-            left: '3%',
+            left: '5%',
             right: '4%',
             bottom: '3%',
             top: '25%',

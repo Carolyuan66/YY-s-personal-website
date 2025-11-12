@@ -1,46 +1,31 @@
-// Project 3: Municipal Infrastructure Project Management (Minimal Image Display)
-// 市政基础设施项目管理 - 极简图片展示(只有图片和文字)
+// Project 3: Municipal Infrastructure Project Management
+// 修复版本 - 限制整体容器高度
 
 function initProject3Chart() {
     const chartDom = document.getElementById('project3-chart');
 
-    // Check if container exists
     if (!chartDom) {
         console.error('Chart container #project3-chart not found');
         return null;
     }
 
-    // Clear any existing content
     chartDom.innerHTML = '';
 
-    // Create minimal image display (only image + text)
-    const chartHTML = `
-        <div class="project3-minimal-container">
-            <!-- Main Gantt Chart Image -->
-            <div class="gantt-image-wrapper">
-                <img 
-                    src="assets/images/project3-gantt.png" 
-                    alt="Municipal Infrastructure Project Gantt Chart"
-                    class="gantt-chart-image"
-                    id="gantt-main-image"
-                    onclick="openLightbox()"
-                >
-                <div class="image-hover-overlay">
-                    <span class="zoom-hint">🔍 Click to enlarge</span>
-                </div>
-            </div>
-
-            <!-- Optional: Tool and Status Info -->
-            <div class="project-footer">
-                <p class="tool-info">Tools: <span class="highlight">ECharts, Gantt Chart</span></p>
-                <p class="status-info">Status: <span class="highlight">Completed</span></p>
+    chartDom.innerHTML = `
+        <div class="gantt-image-wrapper">
+            <img 
+                src="assets/images/project3-gantt.png" 
+                alt="Municipal Infrastructure Project Gantt Chart"
+                class="gantt-chart-image"
+                id="gantt-main-image"
+                onclick="openLightbox()"
+            >
+            <div class="image-hover-overlay">
+                <span class="zoom-hint">🔍 Click to enlarge</span>
             </div>
         </div>
     `;
 
-    chartDom.innerHTML = chartHTML;
-
-    // Create lightbox modal and append to body (CRITICAL: not in chart container!)
     const lightboxHTML = `
         <div id="lightbox-modal" class="lightbox-modal" onclick="closeLightbox()">
             <span class="close-lightbox">&times;</span>
@@ -49,28 +34,20 @@ function initProject3Chart() {
         </div>
     `;
 
-    // Remove existing lightbox if any
     const existingLightbox = document.getElementById('lightbox-modal');
     if (existingLightbox) {
         existingLightbox.remove();
     }
 
-    // Append lightbox directly to body
     document.body.insertAdjacentHTML('beforeend', lightboxHTML);
-
-    // Add minimal styles
     addMinimalStyles();
 
-    // Save instance marker
     window.project3ChartInstance = { type: 'minimal-image', initialized: true };
-
-    console.log('✅ Project 3 chart initialized (minimal version)');
+    console.log('✅ Project 3 chart initialized');
     return true;
 }
 
-// Add minimal styles
 function addMinimalStyles() {
-    // Check if styles already added
     if (document.getElementById('project3-minimal-styles')) {
         return;
     }
@@ -78,28 +55,33 @@ function addMinimalStyles() {
     const styleSheet = document.createElement('style');
     styleSheet.id = 'project3-minimal-styles';
     styleSheet.textContent = `
-        /* Minimal Container */
+        /* 关键：限制图表容器本身的高度 */
         .project3-minimal-container {
             width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
+            max-width: none;
+            margin: 0;
+            padding: 0;
         }
 
-        /* Gantt Image Wrapper */
         .gantt-image-wrapper {
             position: relative;
             width: 100%;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            height: 100%;
+            max-height: none;
+            background: transparent;
+            border-radius: 0;
+            box-shadow: none;
             overflow: hidden;
             cursor: pointer;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .gantt-image-wrapper:hover {
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-            transform: translateY(-3px);
+            box-shadow: none;
+            transform: translateY(-2px);
         }
 
         .gantt-image-wrapper:hover .image-hover-overlay {
@@ -109,10 +91,11 @@ function addMinimalStyles() {
         .gantt-chart-image {
             width: 100%;
             height: auto;
+            max-height: 100%;
             display: block;
+            object-fit: contain;
         }
 
-        /* Hover Overlay */
         .image-hover-overlay {
             position: absolute;
             top: 0;
@@ -138,24 +121,23 @@ function addMinimalStyles() {
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
-        /* Project Footer (Tool and Status Info) */
-        .project-footer {
-            text-align: center;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        .project-footer p {
-            margin: 8px 0;
-            color: #666;
-            font-size: 14px;
-        }
-
-        .project-footer .highlight {
-            color: #337ab7;
-            font-weight: 600;
-        }
+        // .project-footer {
+        //     text-align: center;
+        //     margin-top: 20px;
+        //     padding-top: 15px;
+        //     border-top: 1px solid #e0e0e0;
+        // }
+        //
+        // .project-footer p {
+        //     margin: 8px 0;
+        //     color: #666;
+        //     font-size: 14px;
+        // }
+        //
+        // .project-footer .highlight {
+        //     color: #337ab7;
+        //     font-weight: 600;
+        // }
 
         /* Lightbox Modal */
         .lightbox-modal {
@@ -166,7 +148,7 @@ function addMinimalStyles() {
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;  /* Changed from auto to hidden */
+            overflow: hidden;
             background-color: rgba(0, 0, 0, 0.95);
             animation: fadeIn 0.3s ease;
             inset: 0 !important;
@@ -232,20 +214,62 @@ function addMinimalStyles() {
             font-size: 16px;
         }
 
-        /* Responsive Design */
+        /* 响应式断点 */
+        @media (max-width: 1366px) {
+            // .project3-minimal-container {
+            //     max-width: 95%;
+            //     padding: 0 20px;
+            // }
+            
+            .gantt-image-wrapper {
+                max-height: 450px;
+            }
+            
+            .gantt-chart-image {
+                max-height: 450px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            #project3-chart {
+                max-height: 65vh !important;
+            }
+            
+            .project3-minimal-container {
+                max-width: 90%;
+                padding: 0 15px;
+            }
+            
+            .gantt-image-wrapper {
+                max-height: 400px;
+            }
+            
+            .gantt-chart-image {
+                max-height: 400px;
+            }
+        }
+
         @media (max-width: 768px) {
+            #project3-chart {
+                max-height: 60vh !important;
+            }
+            
+            .project3-minimal-container {
+                padding: 0 12px;
+            }
+            
             .gantt-image-wrapper {
                 border-radius: 8px;
+                max-height: 350px;
+            }
+            
+            .gantt-chart-image {
+                max-height: 350px;
             }
 
             .zoom-hint {
                 padding: 10px 20px;
                 font-size: 13px;
-            }
-
-            .lightbox-content {
-                max-width: 98%;
-                max-height: 80vh;
             }
 
             .close-lightbox {
@@ -263,7 +287,26 @@ function addMinimalStyles() {
             }
         }
 
-        /* Print Styles */
+        @media (max-width: 576px) {
+            .project3-minimal-container {
+                padding: 0 8px;
+            }
+            
+            .gantt-image-wrapper {
+                border-radius: 6px;
+                max-height: 300px;
+            }
+            
+            .gantt-chart-image {
+                max-height: 300px;
+            }
+            
+            .zoom-hint {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+        }
+
         @media print {
             .lightbox-modal,
             .image-hover-overlay {
@@ -280,7 +323,6 @@ function addMinimalStyles() {
     document.head.appendChild(styleSheet);
 }
 
-// Lightbox functions
 function openLightbox() {
     const modal = document.getElementById('lightbox-modal');
     const img = document.getElementById('gantt-main-image');
@@ -289,9 +331,16 @@ function openLightbox() {
     if (modal && img && modalImg) {
         modal.classList.add('active');
         modalImg.src = img.src;
-        // Enhanced scroll lock
+
+        // 禁用body滚动
         document.body.style.overflow = 'hidden';
         document.documentElement.style.overflow = 'hidden';
+
+        // 禁用fullPage.js滚动
+        if (typeof $.fn.fullpage !== 'undefined' && $.fn.fullpage.setAllowScrolling) {
+            $.fn.fullpage.setAllowScrolling(false);
+            $.fn.fullpage.setKeyboardScrolling(false);
+        }
     }
 }
 
@@ -299,24 +348,28 @@ function closeLightbox() {
     const modal = document.getElementById('lightbox-modal');
     if (modal) {
         modal.classList.remove('active');
-        // Restore scroll
+
+        // 恢复body滚动
         document.body.style.overflow = '';
         document.documentElement.style.overflow = '';
+
+        // 恢复fullPage.js滚动
+        if (typeof $.fn.fullpage !== 'undefined' && $.fn.fullpage.setAllowScrolling) {
+            $.fn.fullpage.setAllowScrolling(true);
+            $.fn.fullpage.setKeyboardScrolling(true);
+        }
     }
 }
 
-// Make functions globally available
 window.openLightbox = openLightbox;
 window.closeLightbox = closeLightbox;
 
-// Keyboard support
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
         closeLightbox();
     }
 });
 
-// Auto-initialize after page load
 if (typeof document !== 'undefined') {
     document.addEventListener('DOMContentLoaded', function() {
         const container = document.getElementById('project3-chart');
@@ -328,7 +381,6 @@ if (typeof document !== 'undefined') {
     });
 }
 
-// Export for external use
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { initProject3Chart };
+    module.exports = {};
 }

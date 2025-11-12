@@ -1,76 +1,62 @@
-// Project 4: Customer Segmentation and Marketing Campaign Analysis
-// 客户细分和营销活动分析 - 极简图片展示(只有图片和文字)
+// Project 4: Customer Segmentation Analysis
+// 客户细分分析 - 图片展示（响应式优化）
 
 function initProject4Chart() {
     const chartDom = document.getElementById('project4-chart');
 
-    // Check if container exists
     if (!chartDom) {
         console.error('Chart container #project4-chart not found');
         return null;
     }
 
-    // Clear any existing content
     chartDom.innerHTML = '';
 
-    // Create minimal image display (only image + text)
     const chartHTML = `
-        <div class="project4-minimal-container">
-            <!-- Main Dashboard Image -->
-            <div class="dashboard-image-wrapper">
-                <img 
-                    src="assets/images/project4-dashboard.png" 
-                    alt="Customer Segmentation Dashboard"
-                    class="dashboard-image"
-                    id="dashboard-main-image"
-                    onclick="openProject4Lightbox()"
-                >
-                <div class="image-hover-overlay">
-                    <span class="zoom-hint">🔍 Click to enlarge</span>
+        <div class="dashboard-image-wrapper">
+            <img 
+                src="assets/images/project4-dashboard.png" 
+                alt="Customer Segmentation Dashboard"
+                class="dashboard-image"
+                id="dashboard-main-image"
+                onclick="openProject4Lightbox()"
+            >
+            <div class="image-hover-overlay">
+                <div class="overlay-buttons">
+                    <span class="zoom-hint" onclick="openProject4Lightbox()">🔍 Click to enlarge</span>
+                    <a href="https://public.tableau.com/app/profile/ye.yuan1114/viz/Busan543GroupWork/Dashboard1" 
+                       target="_blank" 
+                       class="tableau-btn"
+                       onclick="event.stopPropagation()">
+                        📊 View Tableau Dashboard
+                    </a>
                 </div>
-            </div>
-
-            <!-- Optional: Tool and Status Info -->
-            <div class="project-footer">
-                <p class="tool-info">Tools: <span class="highlight">Tableau, K-means Clustering</span></p>
-                <p class="status-info">Status: <span class="highlight">Completed</span></p>
             </div>
         </div>
     `;
 
     chartDom.innerHTML = chartHTML;
 
-    // Create lightbox modal and append to body (CRITICAL: not in chart container!)
     const lightboxHTML = `
         <div id="project4-lightbox-modal" class="lightbox-modal" onclick="closeProject4Lightbox()">
             <span class="close-lightbox">&times;</span>
             <img class="lightbox-content" id="project4-lightbox-image">
-            <div class="lightbox-caption">Customer Segmentation & Marketing Campaign Analysis</div>
         </div>
     `;
 
-    // Remove existing lightbox if any
     const existingLightbox = document.getElementById('project4-lightbox-modal');
     if (existingLightbox) {
         existingLightbox.remove();
     }
 
-    // Append lightbox directly to body
     document.body.insertAdjacentHTML('beforeend', lightboxHTML);
-
-    // Add minimal styles
     addProject4MinimalStyles();
 
-    // Save instance marker
     window.project4ChartInstance = { type: 'minimal-image', initialized: true };
-
-    console.log('✅ Project 4 chart initialized (minimal version)');
+    console.log('✅ Project 4 chart initialized');
     return true;
 }
 
-// Add minimal styles
 function addProject4MinimalStyles() {
-    // Check if styles already added
     if (document.getElementById('project4-minimal-styles')) {
         return;
     }
@@ -78,28 +64,31 @@ function addProject4MinimalStyles() {
     const styleSheet = document.createElement('style');
     styleSheet.id = 'project4-minimal-styles';
     styleSheet.textContent = `
-        /* Minimal Container */
         .project4-minimal-container {
             width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
+            max-width: none;
+            margin: 0;
+            padding: 0;
         }
 
-        /* Dashboard Image Wrapper */
         .dashboard-image-wrapper {
             position: relative;
             width: 100%;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            height: 100%;
+            background: transparent;
+            border-radius: 0;
+            box-shadow: none;
             overflow: hidden;
             cursor: pointer;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .dashboard-image-wrapper:hover {
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-            transform: translateY(-3px);
+            box-shadow: none;
+            transform: translateY(-2px);
         }
 
         .dashboard-image-wrapper:hover .image-hover-overlay {
@@ -108,18 +97,18 @@ function addProject4MinimalStyles() {
 
         .dashboard-image {
             width: 100%;
-            height: auto;
+            height: 100%;
             display: block;
+            object-fit: contain;
         }
 
-        /* Hover Overlay */
         .image-hover-overlay {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(255, 152, 0, 0.1);
+            background: rgba(51, 122, 183, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -127,34 +116,33 @@ function addProject4MinimalStyles() {
             transition: opacity 0.3s ease;
             pointer-events: none;
         }
-
-        .zoom-hint {
-            background: rgba(255, 152, 0, 0.95);
+        
+        .overlay-buttons {
+            display: flex;
+            gap: 15px;
+            flex-direction: row;
+            align-items: center;
+            pointer-events: auto;
+        }
+        
+        .zoom-hint, .tableau-btn {
+            background: rgba(51, 122, 183, 0.95);
             color: white;
             padding: 12px 28px;
             border-radius: 8px;
             font-size: 15px;
             font-weight: 500;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
         }
 
-        /* Project Footer (Tool and Status Info) */
-        .project-footer {
-            text-align: center;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        .project-footer p {
-            margin: 8px 0;
-            color: #666;
-            font-size: 14px;
-        }
-
-        .project-footer .highlight {
-            color: #ff9800;
-            font-weight: 600;
+        .zoom-hint:hover, .tableau-btn:hover {
+            background: rgba(51, 122, 183, 1);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
         }
 
         /* Lightbox Modal */
@@ -166,7 +154,7 @@ function addProject4MinimalStyles() {
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;  /* Changed from auto to hidden */
+            overflow: hidden;
             background-color: rgba(0, 0, 0, 0.95);
             animation: fadeIn 0.3s ease;
             inset: 0 !important;
@@ -220,32 +208,41 @@ function addProject4MinimalStyles() {
         }
 
         .close-lightbox:hover {
-            color: #ff9800;
+            color: #337ab7;
             transform: scale(1.1);
         }
 
-        .lightbox-caption {
-            text-align: center;
-            color: white;
-            padding: 20px;
-            margin-top: 15px;
-            font-size: 16px;
+        @media (max-width: 1366px) {
+            .project4-minimal-container {
+                max-width: 95%;
+                padding: 0 20px;
+            }
         }
 
-        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .project4-minimal-container {
+                max-width: 90%;
+                padding: 0 15px;
+            }
+        }
+
         @media (max-width: 768px) {
+            .project4-minimal-container {
+                padding: 0 12px;
+            }
+            
             .dashboard-image-wrapper {
                 border-radius: 8px;
             }
 
-            .zoom-hint {
+            .overlay-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+        
+            .zoom-hint, .tableau-btn {
                 padding: 10px 20px;
                 font-size: 13px;
-            }
-
-            .lightbox-content {
-                max-width: 98%;
-                max-height: 80vh;
             }
 
             .close-lightbox {
@@ -253,17 +250,23 @@ function addProject4MinimalStyles() {
                 right: 15px;
                 font-size: 36px;
             }
+        }
 
-            .project-footer {
-                margin-top: 15px;
+        @media (max-width: 576px) {
+            .project4-minimal-container {
+                padding: 0 8px;
+            }
+            
+            .dashboard-image-wrapper {
+                border-radius: 6px;
             }
 
-            .project-footer p {
-                font-size: 13px;
+            .zoom-hint {
+                padding: 8px 16px;
+                font-size: 12px;
             }
         }
 
-        /* Print Styles */
         @media print {
             .lightbox-modal,
             .image-hover-overlay {
@@ -280,7 +283,6 @@ function addProject4MinimalStyles() {
     document.head.appendChild(styleSheet);
 }
 
-// Lightbox functions for Project 4
 function openProject4Lightbox() {
     const modal = document.getElementById('project4-lightbox-modal');
     const img = document.getElementById('dashboard-main-image');
@@ -289,9 +291,14 @@ function openProject4Lightbox() {
     if (modal && img && modalImg) {
         modal.classList.add('active');
         modalImg.src = img.src;
-        // Enhanced scroll lock
         document.body.style.overflow = 'hidden';
         document.documentElement.style.overflow = 'hidden';
+
+        // 禁用fullPage.js滚动
+        if (typeof $.fn.fullpage !== 'undefined' && $.fn.fullpage.setAllowScrolling) {
+            $.fn.fullpage.setAllowScrolling(false);
+            $.fn.fullpage.setKeyboardScrolling(false);
+        }
     }
 }
 
@@ -299,24 +306,26 @@ function closeProject4Lightbox() {
     const modal = document.getElementById('project4-lightbox-modal');
     if (modal) {
         modal.classList.remove('active');
-        // Restore scroll
         document.body.style.overflow = '';
         document.documentElement.style.overflow = '';
+
+        // 恢复fullPage.js滚动
+        if (typeof $.fn.fullpage !== 'undefined' && $.fn.fullpage.setAllowScrolling) {
+            $.fn.fullpage.setAllowScrolling(true);
+            $.fn.fullpage.setKeyboardScrolling(true);
+        }
     }
 }
 
-// Make functions globally available
 window.openProject4Lightbox = openProject4Lightbox;
 window.closeProject4Lightbox = closeProject4Lightbox;
 
-// Keyboard support
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
         closeProject4Lightbox();
     }
 });
 
-// Auto-initialize after page load
 if (typeof document !== 'undefined') {
     document.addEventListener('DOMContentLoaded', function() {
         const container = document.getElementById('project4-chart');
@@ -328,7 +337,6 @@ if (typeof document !== 'undefined') {
     });
 }
 
-// Export for external use
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { initProject4Chart };
 }
