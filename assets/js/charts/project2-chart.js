@@ -16,7 +16,7 @@ function initProject2Chart() {
             text: 'China Solar Thermal Collector Market',
             subtext: 'Sales Performance Analysis 2015-2019',
             left: 'center',
-            top: '2%',
+            top: '1%',
             textStyle: {
                 fontSize: 17,
                 fontWeight: 'bold',
@@ -26,7 +26,7 @@ function initProject2Chart() {
                 fontSize: 11,
                 color: '#666'
             },
-            itemGap: 5
+            itemGap: 2
         },
         tooltip: {
             trigger: 'axis',
@@ -119,9 +119,9 @@ function initProject2Chart() {
                 type: 'value',
                 name: 'Sales Volume (10k m²)',
                 nameTextStyle: {
-                    fontSize: 13,
+                    fontSize: 12,
                     color: '#666',
-                    padding: [0, 0, 0, -10]
+                    padding: [0, 0, 0, 0]
                 },
                 position: 'left',
                 min: 0,

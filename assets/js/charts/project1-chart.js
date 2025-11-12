@@ -10,7 +10,7 @@ function initProject1Chart() {
             text: 'China Consumer Genetic Testing Market',
             subtext: 'User Growth Analysis 2016-2022',
             left: 'center',
-            top: '2%',
+            top: '1%',
             textStyle: {
                 fontSize: 17,
                 fontWeight: 'bold',
@@ -20,7 +20,7 @@ function initProject1Chart() {
                 fontSize: 11,
                 color: '#666'
             },
-            itemGap: 5
+            itemGap: 2
         },
         tooltip: {
             trigger: 'axis',
@@ -34,7 +34,7 @@ function initProject1Chart() {
                 let result = `<b>${params[0].axisValue}</b><br/>`;
                 params.forEach(item => {
                     if (item.seriesName === 'User Count') {
-                        result += `📊 ${item.seriesName}: <b>${item.value}</b> 10,000 people<br/>`;
+                        result += `📊 ${item.seriesName}: <b>${item.value}</b> 10K people<br/>`;
                     } else if (item.seriesName === 'Growth Rate') {
                         result += `📈 ${item.seriesName}: <b>${item.value}%</b><br/>`;
                     }
