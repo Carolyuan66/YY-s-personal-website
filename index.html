@@ -245,6 +245,45 @@
                 transform: scale(0.95);
             }
 
+            /* 信息分区 */
+            .info-section {
+                margin-bottom: 15px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .info-section:last-child {
+                border-bottom: none;
+                margin-bottom: 0;
+            }
+
+            .info-section h4 {
+                margin: 0 0 10px 0;
+                font-size: 14px;
+                color: #337ab7;
+                font-weight: 600;
+            }
+
+            /* 系列指示器 */
+            .series-indicator {
+                display: inline-block;
+                width: 20px;
+                height: 12px;
+                border-radius: 2px;
+                margin-right: 10px;
+                vertical-align: middle;
+            }
+
+            .line-indicator {
+                height: 3px;
+                border-radius: 1.5px;
+            }
+
+            .info-item span:last-child {
+                font-size: 13px;
+                line-height: 1.5;
+            }
+
             /* 模态弹窗背景 */
             .chart-info-modal {
                 display: none;
@@ -269,7 +308,9 @@
                 padding: 25px;
                 border-radius: 12px;
                 max-width: 90%;
-                width: 320px;
+                width: 350px;
+                max-height: 80vh;
+                overflow-y: auto;
                 box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
                 position: relative;
                 animation: modalSlideIn 0.3s ease;
