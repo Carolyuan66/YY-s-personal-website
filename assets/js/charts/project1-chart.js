@@ -4,6 +4,99 @@
 function initProject1Chart() {
     const chartDom = document.getElementById('project1-chart');
     const myChart = echarts.init(chartDom);
+    // 检测是否为移动设备
+    const isMobile = window.innerWidth <= 768;
+
+    // 如果是移动设备，添加下拉菜单
+    if (isMobile) {
+        const parent = chartDom.parentElement;
+        const existingDropdown = parent.querySelector('.mobile-chart-controls');
+        if (!existingDropdown) {
+            const dropdown = document.createElement('div');
+            dropdown.className = 'mobile-chart-controls';
+            dropdown.innerHTML = `
+                <div class="chart-control-wrapper">
+                    <select id="project1-series-selector" class="chart-selector">
+                        <option value="both">All Data</option>
+                        <option value="userCount">User Count Only</option>
+                        <option value="growthRate">Growth Rate Only</option>
+                    </select>
+                    <button class="chart-info-btn" id="project1-info-btn">ℹ️</button>
+                </div>
+            `;
+            parent.insertBefore(dropdown, chartDom);
+
+            // 添加模态弹窗到body
+            const modalHTML = `
+                <div class="chart-info-modal" id="project1-info-modal">
+                    <div class="chart-info-modal-content">
+                        <button class="close-info">✕</button>
+                        <h3>Chart Information</h3>
+                        <div class="info-item">
+                            <span class="info-icon">📊</span>
+                            <span>User Count: in units of 10K people</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon">📈</span>
+                            <span>Growth Rate: percentage (%)</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+            // 添加信息按钮事件
+            setTimeout(() => {
+                const infoBtn = document.getElementById('project1-info-btn');
+                const modal = document.getElementById('project1-info-modal');
+                const closeBtn = modal.querySelector('.close-info');
+
+                infoBtn.addEventListener('click', () => {
+                    modal.classList.add('active');
+
+                    // 锁定滚动
+                    document.body.style.overflow = 'hidden';
+                    document.documentElement.style.overflow = 'hidden';
+
+                    // 禁用fullPage.js滚动
+                    if (typeof $.fn.fullpage !== 'undefined' && $.fn.fullpage.setAllowScrolling) {
+                        $.fn.fullpage.setAllowScrolling(false);
+                        $.fn.fullpage.setKeyboardScrolling(false);
+                    }
+                });
+
+                const closeModal = () => {
+                    modal.classList.remove('active');
+
+                    // 恢复滚动
+                    document.body.style.overflow = '';
+                    document.documentElement.style.overflow = '';
+
+                    // 恢复fullPage.js滚动
+                    if (typeof $.fn.fullpage !== 'undefined' && $.fn.fullpage.setAllowScrolling) {
+                        $.fn.fullpage.setAllowScrolling(true);
+                        $.fn.fullpage.setKeyboardScrolling(true);
+                    }
+                };
+
+                closeBtn.addEventListener('click', closeModal);
+
+                // 点击模态背景关闭
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        closeModal();
+                    }
+                });
+
+                // ESC键关闭
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && modal.classList.contains('active')) {
+                        closeModal();
+                    }
+                });
+            }, 100);
+        }
+    }
 
     const option = {
         title: {
@@ -12,12 +105,12 @@ function initProject1Chart() {
             left: 'center',
             top: '1%',
             textStyle: {
-                fontSize: 17,
+                fontSize: isMobile? 14 : 17,
                 fontWeight: 'bold',
                 color: '#333'
             },
             subtextStyle: {
-                fontSize: 11,
+                fontSize: isMobile? 10 : 11,
                 color: '#666'
             },
             itemGap: 2
@@ -48,10 +141,11 @@ function initProject1Chart() {
             textStyle: {
                 fontSize: 10,
                 fontWeight: 500
-            }
+            },
+            show: !isMobile
         },
         toolbox: {
-            show: true,
+            show: !isMobile,
             feature: {
                 dataView: {
                     readOnly: false,
@@ -96,7 +190,7 @@ function initProject1Chart() {
         yAxis: [
             {
                 type: 'value',
-                name: 'User Count (10,000)',
+                name: isMobile? '' : 'User Count (10,000)',
                 nameTextStyle: {
                     fontSize: 13,
                     color: '#666',
@@ -123,7 +217,7 @@ function initProject1Chart() {
             },
             {
                 type: 'value',
-                name: 'Growth Rate (%)',
+                name: isMobile? '' : 'Growth Rate (%)',
                 nameTextStyle: {
                     fontSize: 13,
                     color: '#666',
@@ -244,9 +338,84 @@ function initProject1Chart() {
 
     myChart.setOption(option);
 
-    // 响应式调整
+    // 移动端下拉菜单控制
+    if (isMobile) {
+        const selector = document.getElementById('project1-series-selector');
+        if (selector) {
+            selector.addEventListener('change', function() {
+                const value = this.value;
+
+                // 根据选择更新图表
+                if (value === 'both') {
+                    myChart.setOption({
+                        legend: {
+                            selected: {
+                                'User Count': true,
+                                'Growth Rate': true
+                            }
+                        }
+                    });
+                } else if (value === 'userCount') {
+                    myChart.setOption({
+                        legend: {
+                            selected: {
+                                'User Count': true,
+                                'Growth Rate': false
+                            }
+                        }
+                    });
+                } else if (value === 'growthRate') {
+                    myChart.setOption({
+                        legend: {
+                            selected: {
+                                'User Count': false,
+                                'Growth Rate': true
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    // 响应式调整 - 重新检测屏幕大小
     window.addEventListener('resize', function() {
+        const currentIsMobile = window.innerWidth <= 768;
+
+        // 更新图表大小
         myChart.resize();
+
+        // 更新图表配置以显示/隐藏元素
+        myChart.setOption({
+            title: {
+                textStyle: {
+                    fontSize: currentIsMobile ? 14 : 17
+                },
+                subtextStyle: {
+                    fontSize: currentIsMobile ? 10 : 11
+                }
+            },
+            legend: {
+                show: !currentIsMobile
+            },
+            toolbox: {
+                show: !currentIsMobile
+            },
+            yAxis: [
+                {
+                    name: currentIsMobile ? '' : 'User Count (10,000)'
+                },
+                {
+                    name: currentIsMobile ? '' : 'Growth Rate (%)'
+                }
+            ]
+        });
+
+        // 显示/隐藏移动端控制
+        const mobileControls = document.querySelector('.mobile-chart-controls');
+        if (mobileControls) {
+            mobileControls.style.display = currentIsMobile ? 'block' : 'none';
+        }
     });
 
     // 保存实例供外部调用
