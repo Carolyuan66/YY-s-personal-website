@@ -1,5 +1,5 @@
-// Project 2: Solar Thermal Collector Market Analysis (Adjusted Toolbox)
-// Solar Water Heater Market Analysis - Toolbox Positioned Higher with Top Tooltips
+// Project 2: Solar Thermal Collector Market Analysis (Mobile Responsive)
+// Solar Water Heater Market Analysis - With Mobile Controls
 
 function initProject2Chart() {
     const chartDom = document.getElementById('project2-chart');
@@ -11,6 +11,132 @@ function initProject2Chart() {
 
     const myChart = echarts.init(chartDom);
 
+    // 检测是否为移动设备
+    const isMobile = window.innerWidth <= 768;
+
+    // 如果是移动设备，添加下拉菜单
+    if (isMobile) {
+        const parent = chartDom.parentElement;
+        const existingDropdown = parent.querySelector('.mobile-chart-controls');
+        if (!existingDropdown) {
+            const dropdown = document.createElement('div');
+            dropdown.className = 'mobile-chart-controls';
+            dropdown.innerHTML = `
+                <div class="chart-control-wrapper">
+                    <select id="project2-series-selector" class="chart-selector">
+                        <option value="all">All Data</option>
+                        <option value="sales">Sales Data Only</option>
+                        <option value="share">Market Share Only</option>
+                    </select>
+                    <button class="chart-info-btn" id="project2-info-btn">ℹ️</button>
+                </div>
+            `;
+            parent.insertBefore(dropdown, chartDom);
+
+            // 添加模态弹窗到body
+            const modalHTML = `
+                <div class="chart-info-modal" id="project2-info-modal">
+                    <div class="chart-info-modal-content">
+                        <button class="close-info">✕</button>
+                        <h3>Chart Information</h3>
+                        
+                        <div class="info-section">
+                            <h4>📊 Sales Data (Bars)</h4>
+                            <div class="info-item">
+                                <span class="series-indicator" style="background: #1f4e8c;"></span>
+                                <span>Himin Flat-plate Solar Sales</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="series-indicator" style="background: #5dbedb;"></span>
+                                <span>Flat-plate Solar Sales</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="series-indicator" style="background: #2d5d3f;"></span>
+                                <span>Total Solar Water Heater Sales</span>
+                            </div>
+                        </div>
+                        
+                        <div class="info-section">
+                            <h4>📈 Market Share (Lines)</h4>
+                            <div class="info-item">
+                                <span class="series-indicator line-indicator" style="background: #5dbedb;"></span>
+                                <span>Flat-plate Share in Total Market</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="series-indicator line-indicator" style="background: #2d5d3f;"></span>
+                                <span>Himin Share in Flat-plate Market</span>
+                            </div>
+                        </div>
+                        
+                        <div class="info-section">
+                            <h4>📏 Units</h4>
+                            <div class="info-item">
+                                <span class="info-icon">•</span>
+                                <span>Sales Volume: 10,000 m²</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-icon">•</span>
+                                <span>Market Share: percentage (%)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+            // 添加信息按钮事件
+            setTimeout(() => {
+                const infoBtn = document.getElementById('project2-info-btn');
+                const modal = document.getElementById('project2-info-modal');
+                const closeBtn = modal.querySelector('.close-info');
+
+                infoBtn.addEventListener('click', () => {
+                    modal.classList.add('active');
+
+                    // 锁定滚动
+                    document.body.style.overflow = 'hidden';
+                    document.documentElement.style.overflow = 'hidden';
+
+                    // 禁用fullPage.js滚动
+                    if (typeof $.fn.fullpage !== 'undefined' && $.fn.fullpage.setAllowScrolling) {
+                        $.fn.fullpage.setAllowScrolling(false);
+                        $.fn.fullpage.setKeyboardScrolling(false);
+                    }
+                });
+
+                const closeModal = () => {
+                    modal.classList.remove('active');
+
+                    // 恢复滚动
+                    document.body.style.overflow = '';
+                    document.documentElement.style.overflow = '';
+
+                    // 恢复fullPage.js滚动
+                    if (typeof $.fn.fullpage !== 'undefined' && $.fn.fullpage.setAllowScrolling) {
+                        $.fn.fullpage.setAllowScrolling(true);
+                        $.fn.fullpage.setKeyboardScrolling(true);
+                    }
+                };
+
+                closeBtn.addEventListener('click', closeModal);
+
+                // 点击模态背景关闭
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        closeModal();
+                    }
+                });
+
+                // ESC键关闭
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && modal.classList.contains('active')) {
+                        closeModal();
+                    }
+                });
+            }, 100);
+        }
+    }
+
     const option = {
         title: {
             text: 'China Solar Thermal Collector Market',
@@ -18,12 +144,12 @@ function initProject2Chart() {
             left: 'center',
             top: '1%',
             textStyle: {
-                fontSize: 17,
+                fontSize: isMobile ? 14 : 17,
                 fontWeight: 'bold',
                 color: '#333'
             },
             subtextStyle: {
-                fontSize: 11,
+                fontSize: isMobile ? 10 : 11,
                 color: '#666'
             },
             itemGap: 2
@@ -40,7 +166,7 @@ function initProject2Chart() {
                 let result = `<b>${params[0].axisValue}</b><br/>`;
                 params.forEach(item => {
                     const icon = item.marker;
-                    let unit = '';
+                    let unit;
                     let value = item.value;
 
                     if (item.seriesName.includes('Share')) {
@@ -69,10 +195,11 @@ function initProject2Chart() {
             },
             itemGap: 5,
             itemWidth: 16,
-            itemHeight: 8
+            itemHeight: 8,
+            show: !isMobile
         },
         toolbox: {
-            show: true,
+            show: !isMobile,
             feature: {
                 dataView: {
                     readOnly: false,
@@ -89,10 +216,10 @@ function initProject2Chart() {
                 }
             },
             right: '5%',
-            top: '1%',
+            top: '1%'
         },
         grid: {
-            left: '5%',
+            left: '8%',
             right: '4%',
             bottom: '3%',
             top: '27%',
@@ -117,7 +244,7 @@ function initProject2Chart() {
         yAxis: [
             {
                 type: 'value',
-                name: 'Sales Volume (10k m²)',
+                name: isMobile ? '' : 'Sales Volume (10k m²)',
                 nameTextStyle: {
                     fontSize: 12,
                     color: '#666',
@@ -147,7 +274,7 @@ function initProject2Chart() {
             },
             {
                 type: 'value',
-                name: 'Market Share (%)',
+                name: isMobile ? '' : 'Market Share (%)',
                 nameTextStyle: {
                     fontSize: 13,
                     color: '#666',
@@ -298,9 +425,93 @@ function initProject2Chart() {
 
     myChart.setOption(option);
 
-    // Responsive resizing
+    // 移动端下拉菜单控制
+    if (isMobile) {
+        const selector = document.getElementById('project2-series-selector');
+        if (selector) {
+            selector.addEventListener('change', function() {
+                const value = this.value;
+
+                // 根据选择更新图表
+                if (value === 'all') {
+                    myChart.setOption({
+                        legend: {
+                            selected: {
+                                'Himin Flat-plate Solar Sales': true,
+                                'Flat-plate Solar Sales': true,
+                                'Total Solar Water Heater Sales': true,
+                                'Flat-plate Share in Total Market': true,
+                                'Himin Share in Flat-plate Market': true
+                            }
+                        }
+                    });
+                } else if (value === 'sales') {
+                    myChart.setOption({
+                        legend: {
+                            selected: {
+                                'Himin Flat-plate Solar Sales': true,
+                                'Flat-plate Solar Sales': true,
+                                'Total Solar Water Heater Sales': true,
+                                'Flat-plate Share in Total Market': false,
+                                'Himin Share in Flat-plate Market': false
+                            }
+                        }
+                    });
+                } else if (value === 'share') {
+                    myChart.setOption({
+                        legend: {
+                            selected: {
+                                'Himin Flat-plate Solar Sales': false,
+                                'Flat-plate Solar Sales': false,
+                                'Total Solar Water Heater Sales': false,
+                                'Flat-plate Share in Total Market': true,
+                                'Himin Share in Flat-plate Market': true
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    // 响应式调整 - 重新检测屏幕大小
     window.addEventListener('resize', function() {
+        const currentIsMobile = window.innerWidth <= 768;
+
+        // 更新图表大小
         myChart.resize();
+
+        // 更新图表配置以显示/隐藏元素
+        myChart.setOption({
+            title: {
+                textStyle: {
+                    fontSize: currentIsMobile ? 14 : 17
+                },
+                subtextStyle: {
+                    fontSize: currentIsMobile ? 10 : 11
+                }
+            },
+            legend: {
+                show: !currentIsMobile
+            },
+            toolbox: {
+                show: !currentIsMobile
+            },
+            yAxis: [
+                {
+                    name: currentIsMobile ? '' : 'Sales Volume (10k m²)'
+                },
+                {
+                    name: currentIsMobile ? '' : 'Market Share (%)'
+                }
+            ]
+        });
+
+        // 显示/隐藏移动端控制
+        const mobileControls = document.querySelectorAll('.mobile-chart-controls')[1]; // 第二个是project2的
+        if (mobileControls) {
+            mobileControls.style.display = currentIsMobile ? 'block' : 'none';
+        }
     });
 
     // Save instance for external access
