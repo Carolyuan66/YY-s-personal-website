@@ -32,13 +32,29 @@ function initProject1Chart() {
                     <div class="chart-info-modal-content">
                         <button class="close-info">✕</button>
                         <h3>Chart Information</h3>
-                        <div class="info-item">
-                            <span class="info-icon">📊</span>
-                            <span>User Count: in units of 10K people</span>
+                        
+                        <div class="info-section">
+                            <h4>📊 Data Series</h4>
+                            <div class="info-item">
+                                <span class="series-indicator" style="background: #5470c6;"></span>
+                                <span>User Count</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="series-indicator line-indicator" style="background: #91cc75;"></span>
+                                <span>Growth Rate</span>
+                            </div>
                         </div>
-                        <div class="info-item">
-                            <span class="info-icon">📈</span>
-                            <span>Growth Rate: percentage (%)</span>
+                        
+                        <div class="info-section">
+                            <h4>📏 Units</h4>
+                            <div class="info-item">
+                                <span class="info-icon">•</span>
+                                <span>User Count: 10,000 people</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-icon">•</span>
+                                <span>Growth Rate: percentage (%)</span>
+                            </div>
                         </div>
                     </div>
                 </div>
