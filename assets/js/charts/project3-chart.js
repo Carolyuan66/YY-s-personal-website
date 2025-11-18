@@ -131,7 +131,7 @@ function addMinimalStyles() {
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
     
-        /* 移动端放大按钮 */
+        /* 移动端放大按钮 - 基础样式 */
         .mobile-enlarge-btn {
             display: none;
             position: relative;
@@ -246,7 +246,7 @@ function addMinimalStyles() {
             }
         }
     
-        /* 平板和手机 */
+        /* 平板和手机 - 显示按钮 */
         @media (max-width: 768px) {
             #project3-chart {
                 padding-bottom: 10px;
@@ -258,22 +258,25 @@ function addMinimalStyles() {
             
             .gantt-image-wrapper {
                 border-radius: 8px;
-                min-height: 360px;
+                max-height: 350px !important;
                 margin-bottom: 0;
                 cursor: default;
             }
             
             .gantt-chart-image {
-                min-height: 360px;
+                max-height: 350px !important;
+                min-height： auto;
+                height: auto !important;
             }
     
-            /* 移动端显示放大按钮 */
+            /* ✅ 移动端显示放大按钮 */
             .mobile-enlarge-btn {
-                display: block;
+                display: block !important;
                 position: relative;
                 font-size: 13px;
-                margin-top: 8px;
-                z-index: 10;
+                margin-top: 6px;
+                padding: 9px 18px;
+                z-index: 100;
             }
     
             /* 移动端隐藏hover提示 */
@@ -300,25 +303,37 @@ function addMinimalStyles() {
             
             .gantt-image-wrapper {
                 border-radius: 6px;
-                min-height: 320px;
+                max-height: 320px !important;
+                min-height: auto;
                 cursor: default;
             }
             
             .gantt-chart-image {
-                min-height: 320px;
+                max-height: 320px !important;
+                min-height: auto;
+                height: auto !important;
             }
     
+            /* ✅ 移动端显示放大按钮 */
             .mobile-enlarge-btn {
+                display: block !important;
                 position: relative;
                 padding: 8px 16px;
                 font-size: 13px;
-                margin-top: -50px;
-                z-index: 10;
+                margin-top: 6px;
+                z-index: 100;
             }
             
             .zoom-hint {
                 padding: 8px 16px;
                 font-size: 12px;
+            }
+        }
+    
+        /* 桌面端明确隐藏按钮 */
+        @media (min-width: 769px) {
+            .mobile-enlarge-btn {
+                display: none !important;
             }
         }
     
