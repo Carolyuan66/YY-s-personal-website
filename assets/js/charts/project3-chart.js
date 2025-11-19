@@ -1,5 +1,4 @@
 // Project 3: Municipal Infrastructure Project Management
-// 修复版本 - 限制整体容器高度
 
 function initProject3Chart() {
     const chartDom = document.getElementById('project3-chart');

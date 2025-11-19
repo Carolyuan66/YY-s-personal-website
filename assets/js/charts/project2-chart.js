@@ -1,5 +1,4 @@
 // Project 2: Solar Thermal Collector Market Analysis (Mobile Responsive)
-// Solar Water Heater Market Analysis - With Mobile Controls
 
 function initProject2Chart() {
     const chartDom = document.getElementById('project2-chart');

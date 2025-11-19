@@ -1,5 +1,4 @@
 // Project 4: Customer Segmentation Analysis
-// 客户细分分析 - 图片展示（响应式优化）
 
 function initProject4Chart() {
     const chartDom = document.getElementById('project4-chart');
@@ -174,8 +173,8 @@ function addProject4MinimalStyles() {
         /* 移动端按钮组 - 基础样式 */
         .mobile-button-group {
             display: none;
-            flex-direction: column;  /* 改为竖向排列 */
-            gap: 8px;  /* 上下间距 */
+            flex-direction: column;
+            gap: 8px;
             margin-top: 15px;
             padding: 0;
             width: 100%;

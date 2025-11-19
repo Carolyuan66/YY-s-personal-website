@@ -1,5 +1,4 @@
 // Project 5: AI & E-commerce Research
-// AI与电子商务研究 - 图片展示（响应式优化）
 
 function initProject5Chart() {
     const chartDom = document.getElementById('project5-chart');
