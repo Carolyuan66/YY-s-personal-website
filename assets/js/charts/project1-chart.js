@@ -1,5 +1,4 @@
 // Project 1: Genetic Testing Market Environment Analysis (Enhanced Version)
-// 基因检测市场环境分析 - 增强版
 
 function initProject1Chart() {
     const chartDom = document.getElementById('project1-chart');
@@ -271,8 +270,8 @@ function initProject1Chart() {
                     { value: 104.3, itemStyle: { color: '#5470c6' } },
                     { value: 220.7, itemStyle: { color: '#5470c6' } },
                     { value: 496.1, itemStyle: { color: '#5470c6' } },
-                    { value: 1065.5, itemStyle: { color: '#91cc75' } },  // 预测数据用不同颜色
-                    { value: 2070.3, itemStyle: { color: '#91cc75' } }   // 预测数据用不同颜色
+                    { value: 1065.5, itemStyle: { color: '#91cc75' } },
+                    { value: 2070.3, itemStyle: { color: '#91cc75' } }
                 ],
                 itemStyle: {
                     borderRadius: [5, 5, 0, 0],
