@@ -18,12 +18,14 @@ function initProject3Chart() {
                 alt="Municipal Infrastructure Project Gantt Chart"
                 class="gantt-chart-image"
                 id="gantt-main-image"
-                onclick="openLightbox()"
             >
             <div class="image-hover-overlay">
                 <span class="zoom-hint">🔍 Click to enlarge</span>
             </div>
         </div>
+        <button class="mobile-enlarge-btn" onclick="openLightbox()">
+            🔍 Click to Enlarge
+        </button>
     `;
 
     const lightboxHTML = `
@@ -42,6 +44,17 @@ function initProject3Chart() {
     document.body.insertAdjacentHTML('beforeend', lightboxHTML);
     addMinimalStyles();
 
+    // 添加图片点击事件 - 仅桌面端
+    const ganttImage = document.getElementById('gantt-main-image');
+    if (ganttImage) {
+        ganttImage.addEventListener('click', function() {
+            // 只在桌面端（宽度>768px）触发
+            if (window.innerWidth > 768) {
+                openLightbox();
+            }
+        });
+    }
+
     window.project3ChartInstance = { type: 'minimal-image', initialized: true };
     console.log('✅ Project 3 chart initialized');
     return true;
@@ -55,19 +68,17 @@ function addMinimalStyles() {
     const styleSheet = document.createElement('style');
     styleSheet.id = 'project3-minimal-styles';
     styleSheet.textContent = `
-        /* 关键：限制图表容器本身的高度 */
         .project3-minimal-container {
             width: 100%;
             max-width: none;
             margin: 0;
             padding: 0;
         }
-
+    
         .gantt-image-wrapper {
             position: relative;
             width: 100%;
             height: 100%;
-            max-height: none;
             background: transparent;
             border-radius: 0;
             box-shadow: none;
@@ -78,24 +89,23 @@ function addMinimalStyles() {
             align-items: center;
             justify-content: center;
         }
-
+    
         .gantt-image-wrapper:hover {
             box-shadow: none;
             transform: translateY(-2px);
         }
-
+    
         .gantt-image-wrapper:hover .image-hover-overlay {
             opacity: 1;
         }
-
+    
         .gantt-chart-image {
             width: 100%;
-            height: auto;
-            max-height: 100%;
+            height: 100%;
             display: block;
             object-fit: contain;
         }
-
+    
         .image-hover-overlay {
             position: absolute;
             top: 0;
@@ -110,7 +120,7 @@ function addMinimalStyles() {
             transition: opacity 0.3s ease;
             pointer-events: none;
         }
-
+    
         .zoom-hint {
             background: rgba(51, 122, 183, 0.95);
             color: white;
@@ -120,25 +130,31 @@ function addMinimalStyles() {
             font-weight: 500;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
-
-        // .project-footer {
-        //     text-align: center;
-        //     margin-top: 20px;
-        //     padding-top: 15px;
-        //     border-top: 1px solid #e0e0e0;
-        // }
-        //
-        // .project-footer p {
-        //     margin: 8px 0;
-        //     color: #666;
-        //     font-size: 14px;
-        // }
-        //
-        // .project-footer .highlight {
-        //     color: #337ab7;
-        //     font-weight: 600;
-        // }
-
+    
+        /* 移动端放大按钮 - 基础样式 */
+        .mobile-enlarge-btn {
+            display: none;
+            position: relative;
+            width: calc(100% - 20px);
+            padding: 10px 20px;
+            margin: 15px 10px 0 10px;
+            background: #337ab7;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(51, 122, 183, 0.3);
+            z-index: 100;
+        }
+    
+        .mobile-enlarge-btn:active {
+            background: #23527c;
+            transform: scale(0.98);
+        }
+    
         /* Lightbox Modal */
         .lightbox-modal {
             display: none;
@@ -153,12 +169,12 @@ function addMinimalStyles() {
             animation: fadeIn 0.3s ease;
             inset: 0 !important;
         }
-
+    
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-
+    
         .lightbox-modal.active {
             display: flex !important;
             align-items: center;
@@ -166,7 +182,7 @@ function addMinimalStyles() {
             flex-direction: column;
             padding: 10px;
         }
-
+    
         .lightbox-content {
             max-width: 98vw;
             max-height: 95vh;
@@ -177,7 +193,7 @@ function addMinimalStyles() {
             box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
             animation: zoomIn 0.3s ease;
         }
-
+    
         @keyframes zoomIn {
             from { 
                 transform: scale(0.8); 
@@ -188,7 +204,7 @@ function addMinimalStyles() {
                 opacity: 1; 
             }
         }
-
+    
         .close-lightbox {
             position: absolute;
             top: 20px;
@@ -200,105 +216,112 @@ function addMinimalStyles() {
             transition: all 0.3s ease;
             z-index: 10000;
         }
-
+    
         .close-lightbox:hover {
             color: #337ab7;
             transform: scale(1.1);
         }
-
+    
         .lightbox-caption {
             text-align: center;
             color: white;
             padding: 20px;
             margin-top: 15px;
             font-size: 16px;
+            display: none;
         }
-
+    
         /* 响应式断点 */
         @media (max-width: 1366px) {
-            // .project3-minimal-container {
-            //     max-width: 95%;
-            //     padding: 0 20px;
-            // }
-            
-            .gantt-image-wrapper {
-                max-height: 450px;
-            }
-            
-            .gantt-chart-image {
-                max-height: 450px;
+            .project3-minimal-container {
+                max-width: 95%;
+                padding: 0 20px;
             }
         }
-
+    
         @media (max-width: 1024px) {
-            #project3-chart {
-                max-height: 65vh !important;
-            }
-            
             .project3-minimal-container {
                 max-width: 90%;
                 padding: 0 15px;
             }
-            
-            .gantt-image-wrapper {
-                max-height: 400px;
-            }
-            
-            .gantt-chart-image {
-                max-height: 400px;
-            }
         }
-
+    
+        /* 平板和手机 - 显示按钮 */
         @media (max-width: 768px) {
             #project3-chart {
-                max-height: 60vh !important;
+                padding-bottom: 10px;
             }
-            
+    
             .project3-minimal-container {
-                padding: 0 12px;
+                padding: 0 12px 10px 12px;
             }
             
             .gantt-image-wrapper {
                 border-radius: 8px;
-                max-height: 350px;
+                max-height: 350px !important;
+                margin-bottom: 0;
+                cursor: default;
             }
             
             .gantt-chart-image {
-                max-height: 350px;
+                max-height: 350px !important;
+                min-height： auto;
+                height: auto !important;
             }
-
+    
+            /* ✅ 移动端显示放大按钮 */
+            .mobile-enlarge-btn {
+                display: block !important;
+                position: relative;
+                font-size: 13px;
+                margin-top: 6px;
+                padding: 9px 18px;
+                z-index: 100;
+            }
+    
+            /* 移动端隐藏hover提示 */
+            .image-hover-overlay {
+                display: none !important;
+            }
+    
             .zoom-hint {
                 padding: 10px 20px;
                 font-size: 13px;
             }
-
+    
             .close-lightbox {
                 top: 10px;
                 right: 15px;
                 font-size: 36px;
             }
-
-            .project-footer {
-                margin-top: 15px;
-            }
-
-            .project-footer p {
-                font-size: 13px;
-            }
         }
-
+    
         @media (max-width: 576px) {
             .project3-minimal-container {
-                padding: 0 8px;
+                padding: 0 8px 8px 8px;
             }
             
             .gantt-image-wrapper {
                 border-radius: 6px;
-                max-height: 300px;
+                max-height: 320px !important;
+                min-height: auto;
+                cursor: default;
             }
             
             .gantt-chart-image {
-                max-height: 300px;
+                max-height: 320px !important;
+                min-height: auto;
+                height: auto !important;
+            }
+    
+            /* ✅ 移动端显示放大按钮 */
+            .mobile-enlarge-btn {
+                display: block !important;
+                position: relative;
+                padding: 8px 16px;
+                font-size: 13px;
+                margin-top: 6px;
+                z-index: 100;
             }
             
             .zoom-hint {
@@ -306,13 +329,21 @@ function addMinimalStyles() {
                 font-size: 12px;
             }
         }
-
-        @media print {
-            .lightbox-modal,
-            .image-hover-overlay {
+    
+        /* 桌面端明确隐藏按钮 */
+        @media (min-width: 769px) {
+            .mobile-enlarge-btn {
                 display: none !important;
             }
-
+        }
+    
+        @media print {
+            .lightbox-modal,
+            .image-hover-overlay,
+            .mobile-enlarge-btn {
+                display: none !important;
+            }
+    
             .gantt-image-wrapper {
                 box-shadow: none;
                 page-break-inside: avoid;
