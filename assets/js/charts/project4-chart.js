@@ -11,14 +11,13 @@ function initProject4Chart() {
 
     chartDom.innerHTML = '';
 
-    const chartHTML = `
+    chartDom.innerHTML = `
         <div class="dashboard-image-wrapper">
             <img 
                 src="assets/images/project4-dashboard.png" 
                 alt="Customer Segmentation Dashboard"
                 class="dashboard-image"
                 id="dashboard-main-image"
-                onclick="openProject4Lightbox()"
             >
             <div class="image-hover-overlay">
                 <div class="overlay-buttons">
@@ -32,9 +31,17 @@ function initProject4Chart() {
                 </div>
             </div>
         </div>
+        <div class="mobile-button-group">
+            <button class="mobile-enlarge-btn" id="project4-enlarge-btn">
+                🔍 Click to Enlarge
+            </button>
+            <a href="https://public.tableau.com/app/profile/ye.yuan1114/viz/Busan543GroupWork/Dashboard1" 
+               target="_blank" 
+               class="mobile-tableau-btn">
+                📊 View Tableau
+            </a>
+        </div>
     `;
-
-    chartDom.innerHTML = chartHTML;
 
     const lightboxHTML = `
         <div id="project4-lightbox-modal" class="lightbox-modal" onclick="closeProject4Lightbox()">
@@ -50,6 +57,25 @@ function initProject4Chart() {
 
     document.body.insertAdjacentHTML('beforeend', lightboxHTML);
     addProject4MinimalStyles();
+
+    // 添加图片点击事件 - 仅桌面端
+    const dashboardImage = document.getElementById('dashboard-main-image');
+    if (dashboardImage) {
+        dashboardImage.addEventListener('click', function() {
+            if (window.innerWidth > 768) {
+                openProject4Lightbox();
+            }
+        });
+    }
+
+    // 添加移动端按钮点击事件
+    const mobileEnlargeBtn = document.getElementById('project4-enlarge-btn');
+    if (mobileEnlargeBtn) {
+        mobileEnlargeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            openProject4Lightbox();
+        });
+    }
 
     window.project4ChartInstance = { type: 'minimal-image', initialized: true };
     console.log('✅ Project 4 chart initialized');
@@ -70,7 +96,7 @@ function addProject4MinimalStyles() {
             margin: 0;
             padding: 0;
         }
-
+    
         .dashboard-image-wrapper {
             position: relative;
             width: 100%;
@@ -85,23 +111,23 @@ function addProject4MinimalStyles() {
             align-items: center;
             justify-content: center;
         }
-
+    
         .dashboard-image-wrapper:hover {
             box-shadow: none;
             transform: translateY(-2px);
         }
-
+    
         .dashboard-image-wrapper:hover .image-hover-overlay {
             opacity: 1;
         }
-
+    
         .dashboard-image {
             width: 100%;
             height: 100%;
             display: block;
             object-fit: contain;
         }
-
+    
         .image-hover-overlay {
             position: absolute;
             top: 0;
@@ -138,13 +164,49 @@ function addProject4MinimalStyles() {
             text-decoration: none;
             display: inline-block;
         }
-
+    
         .zoom-hint:hover, .tableau-btn:hover {
             background: rgba(51, 122, 183, 1);
             transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
         }
-
+    
+        /* 移动端按钮组 - 基础样式 */
+        .mobile-button-group {
+            display: none;
+            flex-direction: column;  /* 改为竖向排列 */
+            gap: 8px;  /* 上下间距 */
+            margin-top: 15px;
+            padding: 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .mobile-enlarge-btn, .mobile-tableau-btn {
+            width: calc(100% - 20px);
+            padding: 0 10px;
+            background: #337ab7;
+            color: white !important;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(51, 122, 183, 0.3);
+            text-decoration: none;
+            text-align: center;
+            display: block;
+            position: relative;
+            z-index: 100;
+            box-sizing: border-box;
+        }
+        
+        .mobile-enlarge-btn:active, .mobile-tableau-btn:active {
+            background: #23527c;
+            transform: scale(0.98);
+        }
+    
         /* Lightbox Modal */
         .lightbox-modal {
             display: none;
@@ -159,12 +221,12 @@ function addProject4MinimalStyles() {
             animation: fadeIn 0.3s ease;
             inset: 0 !important;
         }
-
+    
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-
+    
         .lightbox-modal.active {
             display: flex !important;
             align-items: center;
@@ -172,7 +234,7 @@ function addProject4MinimalStyles() {
             flex-direction: column;
             padding: 10px;
         }
-
+    
         .lightbox-content {
             max-width: 98vw;
             max-height: 95vh;
@@ -183,7 +245,7 @@ function addProject4MinimalStyles() {
             box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
             animation: zoomIn 0.3s ease;
         }
-
+    
         @keyframes zoomIn {
             from { 
                 transform: scale(0.8); 
@@ -194,7 +256,7 @@ function addProject4MinimalStyles() {
                 opacity: 1; 
             }
         }
-
+    
         .close-lightbox {
             position: absolute;
             top: 20px;
@@ -206,73 +268,121 @@ function addProject4MinimalStyles() {
             transition: all 0.3s ease;
             z-index: 10000;
         }
-
+    
         .close-lightbox:hover {
             color: #337ab7;
             transform: scale(1.1);
         }
-
+    
         @media (max-width: 1366px) {
             .project4-minimal-container {
                 max-width: 95%;
                 padding: 0 20px;
             }
         }
-
+    
         @media (max-width: 1024px) {
             .project4-minimal-container {
                 max-width: 90%;
                 padding: 0 15px;
             }
         }
-
+    
         @media (max-width: 768px) {
-            .project4-minimal-container {
-                padding: 0 12px;
-            }
-            
-            .dashboard-image-wrapper {
-                border-radius: 8px;
-            }
-
-            .overlay-buttons {
-                flex-direction: column;
-                gap: 10px;
-            }
+        .project4-minimal-container {
+            padding: 0 12px 10px 12px;
+        }
         
-            .zoom-hint, .tableau-btn {
-                padding: 10px 20px;
-                font-size: 13px;
-            }
-
-            .close-lightbox {
-                top: 10px;
-                right: 15px;
-                font-size: 36px;
-            }
+        .dashboard-image-wrapper {
+            border-radius: 8px;
+            max-height: 320px !important;
+            min-height: auto;
+            cursor: default;
         }
-
-        @media (max-width: 576px) {
-            .project4-minimal-container {
-                padding: 0 8px;
-            }
-            
-            .dashboard-image-wrapper {
-                border-radius: 6px;
-            }
-
-            .zoom-hint {
-                padding: 8px 16px;
-                font-size: 12px;
-            }
+        
+        .dashboard-image {
+            max-height: 320px !important;
+            min-height: auto;
+            height: auto !important;
         }
-
-        @media print {
-            .lightbox-modal,
-            .image-hover-overlay {
+    
+        /* 移动端隐藏hover overlay */
+        .image-hover-overlay {
+            display: none !important;
+        }
+    
+        /* 移动端显示按钮组 */
+        .mobile-button-group {
+            display: flex !important;
+            flex-direction: column !important;
+            margin-top: 6px;
+            gap: 8px;
+            padding: 0;
+            width: 100%;
+        }
+       
+        .mobile-enlarge-btn, .mobile-tableau-btn {
+            font-size: 13px;
+            padding: 10px 16px;
+            width: calc(100% - 20px);
+            margin: 0 10px;
+        }
+    
+        .close-lightbox {
+            top: 10px;
+            right: 15px;
+            font-size: 36px;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .project4-minimal-container {
+            padding: 0 8px 8px 8px;
+        }
+        
+        .dashboard-image-wrapper {
+            border-radius: 6px;
+            max-height: 280px !important;
+            min-height: auto;
+        }
+        
+        .dashboard-image {
+            max-height: 280px !important;
+            min-height: auto;
+            height: auto !important;
+        }
+    
+        .mobile-button-group {
+            display: flex !important;
+            flex-direction: column !important;
+            margin-top: 6px;
+            gap: 8px;
+            padding: 0;
+            width: 100%;
+        }
+    
+        .mobile-enlarge-btn, .mobile-tableau-btn {
+            padding: 9px 14px;
+            font-size: 12px;
+            width: calc(100% - 16px);
+            margin: 0 8px;
+        }
+    }
+        
+        /* 桌面端明确隐藏按钮组 */
+        @media (min-width: 769px) {
+            .mobile-button-group {
                 display: none !important;
             }
-
+        }
+    
+        @media print {
+            .lightbox-modal,
+            .image-hover-overlay,
+            .mobile-button-group {
+                display: none !important;
+            }
+    
             .dashboard-image-wrapper {
                 box-shadow: none;
                 page-break-inside: avoid;
