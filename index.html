@@ -383,6 +383,55 @@
                 color: #337ab7;
             }
         }
+
+        /* Education Section 专属样式 */
+        .education-content {
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .education-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .education-content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .education-content ul li {
+            padding: 12px 20px;
+            margin: 8px 0;
+            background: rgba(51, 122, 183, 0.05);
+            border-left: 4px solid #337ab7;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .education-content ul li:hover {
+            background: rgba(51, 122, 183, 0.1);
+            transform: translateX(5px);
+        }
+
+        /* 响应式调整 - Education */
+        @media (max-width: 768px) {
+            .education-content h3 {
+                font-size: 1.2rem;
+                margin-bottom: 15px;
+            }
+
+            .education-content ul li {
+                font-size: 0.9rem;
+                padding: 10px 15px;
+            }
+        }
+
+        /* 覆盖education section的content-slide宽度限制 */
+        .section[data-anchor="education"] .content-slide {
+            max-width: none !important;
+        }
     </style>
 </head>
 <body>
@@ -412,9 +461,10 @@
     <i class="fa fa-bars fa-3x"></i>
     <div class="header-links">
         <ul>
-            <li data-menuanchor="fifthPage"><a href="#contact">CONTACT</a></li>
-            <li data-menuanchor="fourthPage"><a href="#portfolio">PORTFOLIO</a></li>
-            <li data-menuanchor="thirdPage"><a href="#projects">PROJECTS</a></li>
+            <li data-menuanchor="sixthPage"><a href="#contact">CONTACT</a></li>
+            <li data-menuanchor="fifthPage"><a href="#portfolio">PORTFOLIO</a></li>
+            <li data-menuanchor="fourthPage"><a href="#projects">PROJECTS</a></li>
+            <li data-menuanchor="thirdPage"><a href="#education">EDUCATION</a></li>
             <li data-menuanchor="secondPage"><a href="#about">ABOUT ME</a></li>
         </ul>
     </div>
@@ -427,9 +477,11 @@
     <div class="nav-container">
         <div class="nav-links">
             <ul id='myMenu'>
-                <li data-menuanchor="secondPage"><a href="#about">ABOUT</a></li>
-                <li data-menuanchor="thirdPage"><a href="#projects">PROJECTS</a></li>
-                <li data-menuanchor="fourthPage"><a href="#contact">CONTACT</a></li>
+                <li data-menuanchor="secondPage"><a href="#about">ABOUT ME</a></li>
+                <li data-menuanchor="thirdPage"><a href="#education">EDUCATIONS</a></li>
+                <li data-menuanchor="fourthPage"><a href="#projects">PROJECTS</a></li>
+                <li data-menuanchor="fifthPage"><a href="#portfolio">PORTFOLIO</a></li>
+                <li data-menuanchor="sixthPage"><a href="#contact">CONTACT</a></li>
             </ul>
         </div>
     </div>
@@ -505,6 +557,47 @@
                     <div class="skill-bar-percent">90%</div>
                 </div> <!-- End Skill Bar -->
             </div>
+        </div>
+    </div>
+    <!-- end section -->
+
+    <!-- begin section: EDUCATION -->
+    <div class="section" data-anchor="education">
+        <div class="content-slide">
+
+            <!-- Education 1: Bachelor of Arts in Journalism -->
+            <div class="slide">
+                <h1 class="wow fadeInDown" data-wow-delay="0.2s" style="color:#337ab7">BACHELOR OF ARTS IN JOURNALISM</h1>
+                <p class="wow fadeInDown" data-wow-delay="0.2s">Sichuan University, China | 2016 - 2020</p>
+
+                <!-- 教育内容容器 - 不使用chart-container类 -->
+                <div class="wow fadeInUp" data-wow-delay="0.3s">
+                    <div id="education1-content"></div>
+                </div>
+            </div>
+
+            <!-- Education 2: Graduate Diploma in Digital Business -->
+            <div class="slide">
+                <h1 class="wow fadeInDown" data-wow-delay="0.2s" style="color:#337ab7">GRADUATE DIPLOMA IN DIGITAL BUSINESS</h1>
+                <p class="wow fadeInDown" data-wow-delay="0.2s">University of Waikato, New Zealand | 2021 - 2022</p>
+
+                <!-- 教育内容容器 - 不使用chart-container类 -->
+                <div class="wow fadeInUp" data-wow-delay="0.3s">
+                    <div id="education2-content"></div>
+                </div>
+            </div>
+
+            <!-- Education 3: Master of Digital Business -->
+            <div class="slide">
+                <h1 class="wow fadeInDown" data-wow-delay="0.2s" style="color:#337ab7">MASTER OF DIGITAL BUSINESS</h1>
+                <p class="wow fadeInDown" data-wow-delay="0.2s">University of Waikato, New Zealand | 2022 - 2023</p>
+
+                <!-- 教育内容容器 - 不使用chart-container类 -->
+                <div class="wow fadeInUp" data-wow-delay="0.3s">
+                    <div id="education3-content"></div>
+                </div>
+            </div>
+
         </div>
     </div>
     <!-- end section -->
@@ -631,6 +724,11 @@
 <script src="assets/js/charts/project4-chart.js?v=7.0"></script>
 <script src="assets/js/charts/project5-chart.js?v=7.0"></script>
 
+<!-- 引入 Education 脚本 -->
+<script src="assets/js/education/undergraduate.js?v=1.0"></script>
+<script src="assets/js/education/graduateDiploma.js?v=2.0"></script>
+<script src="assets/js/education/graduateMaster.js?v=1.0"></script>
+
 <!-- 图表初始化调用 -->
 <script>
     // 用于跟踪已初始化的图表
@@ -640,6 +738,13 @@
         project3: false,
         project4: false,
         project5: false
+    };
+
+    // 用于跟踪已初始化的教育经历
+    const initializedEducation = {
+        education1: false,
+        education2: false,
+        education3: false
     };
 
     // 初始化图表的函数
@@ -696,10 +801,52 @@
         }, 300);
     }
 
+    // 初始化教育经历的函数
+    function initEducationByIndex(index) {
+        setTimeout(function() {
+            switch(index) {
+                case 0: // Education 1
+                    if (!initializedEducation.education1) {
+                        const container1 = document.getElementById('education1-content');
+                        if (container1 && typeof initEducation1 === 'function') {
+                            initEducation1();
+                            initializedEducation.education1 = true;
+                        }
+                    }
+                    break;
+                case 1: // Education 2
+                    if (!initializedEducation.education2) {
+                        const container2 = document.getElementById('education2-content');
+                        if (container2 && typeof initEducation2 === 'function') {
+                            initEducation2();
+                            initializedEducation.education2 = true;
+                        }
+                    }
+                    break;
+                case 2: // Education 3
+                    if (!initializedEducation.education3) {
+                        const container3 = document.getElementById('education3-content');
+                        if (container3 && typeof initEducation3 === 'function') {
+                            initEducation3();
+                            initializedEducation.education3 = true;
+                        }
+                    }
+                    break;
+            }
+        }, 300);
+    }
+
     // 强制初始化所有图表
     function initAllCharts() {
         for(let i = 0; i < 5; i++) {
             initChartByIndex(i);
+        }
+    }
+
+    // 强制初始化所有教育经历
+    function initAllEducation() {
+        for(let i = 0; i < 3; i++) {
+            initEducationByIndex(i);
         }
     }
 
@@ -710,18 +857,34 @@
             initChartByIndex(0);
         }, 1000);
 
+        // 初始化Education 1
+        setTimeout(function() {
+            initEducationByIndex(0);
+        }, 1000);
+
         // 自动初始化所有图表（延迟5秒，给DOM充足时间加载）
         setTimeout(function() {
             initAllCharts();
+            initAllEducation();
         }, 3000);
 
-        // 监听多个事件
+        // 监听多个事件 - Projects section
         $('#fullpage').on('afterSlideLoad', function(section, origin, destination, direction) {
-            initChartByIndex(destination.index);
+            // 检查是哪个section
+            if ($(section.item).attr('data-anchor') === 'projects') {
+                initChartByIndex(destination.index);
+            } else if ($(section.item).attr('data-anchor') === 'education') {
+                initEducationByIndex(destination.index);
+            }
         });
 
         $('#fullpage').on('onSlideLeave', function(section, origin, destination, direction) {
-            initChartByIndex(destination.index);
+            // 检查是哪个section
+            if ($(section.item).attr('data-anchor') === 'projects') {
+                initChartByIndex(destination.index);
+            } else if ($(section.item).attr('data-anchor') === 'education') {
+                initEducationByIndex(destination.index);
+            }
         });
 
         // 响应式调整
@@ -746,6 +909,8 @@
         // 将函数暴露到全局
         window.initChartByIndex = initChartByIndex;
         window.initAllCharts = initAllCharts;
+        window.initEducationByIndex = initEducationByIndex;
+        window.initAllEducation = initAllEducation;
 
     });
 </script>
