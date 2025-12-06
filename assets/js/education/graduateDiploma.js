@@ -25,7 +25,7 @@ function initEducation2() {
                 </div>
             </div>
 
-            <div class="education-body-columns">
+            <div class="education-body-columns desktop-content">
                 <!-- 左侧列 -->
                 <div class="left-column">
                     <div class="program-overview">
@@ -108,6 +108,13 @@ function initEducation2() {
                     </div>
                 </div>
             </div>
+
+            <!-- 移动端纯文字内容 -->
+            <div class="mobile-text-content">
+                <p>This intensive postgraduate program provided comprehensive training in digital transformation strategies and business analytics. The curriculum covered enterprise systems implementation through in-depth SAP projects, while advanced coursework built proficiency in Power BI for interactive dashboards, Gephi for network analysis, and various business intelligence tools for predictive modeling.</p>
+                
+                <p>Strategic business modules including Digital Business Technology Trends and Managing Digital Business Transformation provided frameworks for evaluating emerging technologies and leading organizational change. Specialized studies in Project Management, Supply Chain Management, and Business Ecosystems developed the ability to transform raw data into strategic insights and identify opportunities where technology infrastructure drives competitive advantage.</p>
+            </div>
         </div>
     `;
     addEducation2Styles();
@@ -138,9 +145,9 @@ function addEducation2Styles() {
 
         .education-detail-wrapper {
             width: 100%;
-            max-width: 2400px;
+            max-width: 1700px;
             margin: 0 auto;
-            padding: 10px 40px;
+            padding: 10px 60px;
         }
 
         .education-header {
@@ -378,10 +385,41 @@ function addEducation2Styles() {
             font-size: 0.7rem;
         }
 
+        /* 桌面端显示可视化内容，隐藏文字内容 */
+        .desktop-content {
+            display: grid;
+        }
+
+        .mobile-text-content {
+            display: none;
+        }
+
         /* 响应式设计 */
         @media (max-width: 768px) {
             .education-detail-wrapper {
                 padding: 15px;
+            }
+
+            /* 移动端隐藏复杂内容，显示纯文字 */
+            .desktop-content {
+                display: none !important;
+            }
+
+            .mobile-text-content {
+                display: block !important;
+                padding: 15px 0;
+            }
+
+            .mobile-text-content p {
+                font-size: 0.95rem;
+                line-height: 1.6;
+                color: #444;
+                margin-bottom: 15px;
+                text-align: justify;
+            }
+
+            .mobile-text-content p:last-child {
+                margin-bottom: 0;
             }
 
             .header-content {

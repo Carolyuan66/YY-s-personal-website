@@ -25,7 +25,7 @@ function initEducation3() {
                 </div>
             </div>
 
-            <div class="education-body-columns">
+            <div class="education-body-columns desktop-content">
                 <!-- 左侧列 -->
                 <div class="left-column">
                     <div class="program-overview">
@@ -104,6 +104,13 @@ function initEducation3() {
                     </div>
                 </div>
             </div>
+
+            <!-- 移动端纯文字内容 -->
+            <div class="mobile-text-content">
+                <p>This advanced postgraduate program deepened technical expertise and strategic business capabilities through applied analytics and organizational digital transformation. The Applied Business Analytics module significantly enhanced Tableau proficiency—covering advanced dashboard design, calculated fields, data blending techniques, and interactive storytelling frameworks—enabling the creation of sophisticated analytical solutions that transform complex datasets into executive-level strategic insights.</p>
+                
+                <p>Strategic business modules including Digital Business Management and Contemporary Issues in Digital Business examined emerging challenges in digital ecosystems and platform economics. The Applied Research Methods and Project capstone synthesized analytical skills with rigorous research methodologies, while the Professional Field Internship provided hands-on exposure to organizational challenges, applying classroom learning to solve real business problems in professional settings.</p>
+            </div>
         </div>
     `;
 
@@ -136,9 +143,9 @@ function addEducation3Styles() {
 
         .education-detail-wrapper {
             width: 100%;
-            max-width: 2400px;
+            max-width: 1700px;
             margin: 0 auto;
-            padding: 10px 40px;
+            padding: 10px 60px;
         }
 
         .education-header {
@@ -424,10 +431,41 @@ function addEducation3Styles() {
             font-weight: 500;
         }
 
+        /* 桌面端显示可视化内容，隐藏文字内容 */
+        .desktop-content {
+            display: grid;
+        }
+
+        .mobile-text-content {
+            display: none;
+        }
+
         /* 响应式设计 */
         @media (max-width: 768px) {
             .education-detail-wrapper {
                 padding: 15px;
+            }
+
+            /* 移动端隐藏复杂内容，显示纯文字 */
+            .desktop-content {
+                display: none !important;
+            }
+
+            .mobile-text-content {
+                display: block !important;
+                padding: 15px 0;
+            }
+
+            .mobile-text-content p {
+                font-size: 0.95rem;
+                line-height: 1.6;
+                color: #444;
+                margin-bottom: 15px;
+                text-align: justify;
+            }
+
+            .mobile-text-content p:last-child {
+                margin-bottom: 0;
             }
 
             .header-content {
