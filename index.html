@@ -461,11 +461,10 @@
     <i class="fa fa-bars fa-3x"></i>
     <div class="header-links">
         <ul>
-            <li data-menuanchor="sixthPage"><a href="#contact">CONTACT</a></li>
-            <li data-menuanchor="fifthPage"><a href="#portfolio">PORTFOLIO</a></li>
-            <li data-menuanchor="fourthPage"><a href="#projects">PROJECTS</a></li>
-            <li data-menuanchor="thirdPage"><a href="#education">EDUCATION</a></li>
-            <li data-menuanchor="secondPage"><a href="#about">ABOUT ME</a></li>
+            <li data-menuanchor="contact"><a href="#contact">CONTACT</a></li>
+            <li data-menuanchor="projects"><a href="#projects">PROJECTS</a></li>
+            <li data-menuanchor="education"><a href="#education">EDUCATION</a></li>
+            <li data-menuanchor="skills"><a href="#skills">ABOUT ME</a></li>
         </ul>
     </div>
 </div>
@@ -477,11 +476,10 @@
     <div class="nav-container">
         <div class="nav-links">
             <ul id='myMenu'>
-                <li data-menuanchor="secondPage"><a href="#about">ABOUT ME</a></li>
-                <li data-menuanchor="thirdPage"><a href="#education">EDUCATIONS</a></li>
-                <li data-menuanchor="fourthPage"><a href="#projects">PROJECTS</a></li>
-                <li data-menuanchor="fifthPage"><a href="#portfolio">PORTFOLIO</a></li>
-                <li data-menuanchor="sixthPage"><a href="#contact">CONTACT</a></li>
+                <li data-menuanchor="skills"><a href="#skills">ABOUT ME</a></li>
+                <li data-menuanchor="education"><a href="#education">EDUCATION</a></li>
+                <li data-menuanchor="projects"><a href="#projects">PROJECTS</a></li>
+                <li data-menuanchor="contact"><a href="#contact">CONTACT</a></li>
             </ul>
         </div>
     </div>
@@ -565,14 +563,14 @@
     <div class="section" data-anchor="education">
         <div class="content-slide">
 
-            <!-- Education 1: Bachelor of Arts in Journalism -->
+            <!-- Education 3: Master of Digital Business -->
             <div class="slide">
-                <h1 class="wow fadeInDown" data-wow-delay="0.2s" style="color:#337ab7">BACHELOR OF ARTS IN JOURNALISM</h1>
-                <p class="wow fadeInDown" data-wow-delay="0.2s">Sichuan University, China | 2016 - 2020</p>
+                <h1 class="wow fadeInDown" data-wow-delay="0.2s" style="color:#337ab7">MASTER OF DIGITAL BUSINESS</h1>
+                <p class="wow fadeInDown" data-wow-delay="0.2s">University of Waikato, New Zealand | 2022 - 2023</p>
 
                 <!-- 教育内容容器 - 不使用chart-container类 -->
                 <div class="wow fadeInUp" data-wow-delay="0.3s">
-                    <div id="education1-content"></div>
+                    <div id="education3-content"></div>
                 </div>
             </div>
 
@@ -587,14 +585,14 @@
                 </div>
             </div>
 
-            <!-- Education 3: Master of Digital Business -->
+            <!-- Education 1: Bachelor of Arts in Journalism -->
             <div class="slide">
-                <h1 class="wow fadeInDown" data-wow-delay="0.2s" style="color:#337ab7">MASTER OF DIGITAL BUSINESS</h1>
-                <p class="wow fadeInDown" data-wow-delay="0.2s">University of Waikato, New Zealand | 2022 - 2023</p>
+                <h1 class="wow fadeInDown" data-wow-delay="0.2s" style="color:#337ab7">BACHELOR OF ARTS IN JOURNALISM</h1>
+                <p class="wow fadeInDown" data-wow-delay="0.2s">Sichuan University, China | 2016 - 2020</p>
 
                 <!-- 教育内容容器 - 不使用chart-container类 -->
                 <div class="wow fadeInUp" data-wow-delay="0.3s">
-                    <div id="education3-content"></div>
+                    <div id="education1-content"></div>
                 </div>
             </div>
 
@@ -805,16 +803,16 @@
     function initEducationByIndex(index) {
         setTimeout(function() {
             switch(index) {
-                case 0: // Education 1
-                    if (!initializedEducation.education1) {
-                        const container1 = document.getElementById('education1-content');
-                        if (container1 && typeof initEducation1 === 'function') {
-                            initEducation1();
-                            initializedEducation.education1 = true;
+                case 0: // Education 3 (Master - 第一页)
+                    if (!initializedEducation.education3) {
+                        const container3 = document.getElementById('education3-content');
+                        if (container3 && typeof initEducation3 === 'function') {
+                            initEducation3();
+                            initializedEducation.education3 = true;
                         }
                     }
                     break;
-                case 1: // Education 2
+                case 1: // Education 2 (Graduate Diploma - 第二页)
                     if (!initializedEducation.education2) {
                         const container2 = document.getElementById('education2-content');
                         if (container2 && typeof initEducation2 === 'function') {
@@ -823,12 +821,12 @@
                         }
                     }
                     break;
-                case 2: // Education 3
-                    if (!initializedEducation.education3) {
-                        const container3 = document.getElementById('education3-content');
-                        if (container3 && typeof initEducation3 === 'function') {
-                            initEducation3();
-                            initializedEducation.education3 = true;
+                case 2: // Education 1 (Bachelor - 第三页)
+                    if (!initializedEducation.education1) {
+                        const container1 = document.getElementById('education1-content');
+                        if (container1 && typeof initEducation1 === 'function') {
+                            initEducation1();
+                            initializedEducation.education1 = true;
                         }
                     }
                     break;

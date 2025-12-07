@@ -25,7 +25,7 @@ function initEducation1() {
                 </div>
             </div>
 
-            <div class="education-body">
+            <div class="education-body desktop-content">
                 <!-- Core Curriculum - 全宽显示在顶部 -->
                 <div class="curriculum-section">
                     <h3>📚 Core Curriculum</h3>
@@ -91,6 +91,13 @@ function initEducation1() {
                     </div>
                 </div>
             </div>
+
+            <!-- 移动端纯文字内容 -->
+            <div class="mobile-text-content">
+                <p>The undergraduate curriculum provided comprehensive training in journalism theory and hands-on media production. Core courses including News Theory, Interviewing Techniques, News Writing, and News Editing built strong analytical and communication capabilities, while practical courses in News Photography and Television Production developed technical proficiency across multiple media formats.</p>
+                
+                <p>Advanced coursework in Investigative Reporting strengthened research methodology and critical thinking abilities. A competitive internship at Phoenix Television in Hong Kong, working under the Deputy Head of Phoenix Chinese Channel, enhanced adaptability and cross-cultural communication skills in a fast-paced international broadcast environment.</p>
+            </div>
         </div>
     `;
 
@@ -123,9 +130,9 @@ function addEducation1Styles() {
 
         .education-detail-wrapper {
             width: 100%;
-            max-width: 2400px;
+            max-width: 1700px;
             margin: 0 auto;
-            padding: 10px 40px;
+            padding: 10px 60px;
         }
 
         .education-header {
@@ -313,10 +320,41 @@ function addEducation1Styles() {
             font-size: 0.85rem;
         }
 
+        /* 桌面端显示可视化内容，隐藏文字内容 */
+        .desktop-content {
+            display: flex;
+        }
+
+        .mobile-text-content {
+            display: none;
+        }
+
         /* 响应式设计 */
         @media (max-width: 768px) {
             .education-detail-wrapper {
                 padding: 15px;
+            }
+
+            /* 移动端隐藏复杂内容，显示纯文字 */
+            .desktop-content {
+                display: none !important;
+            }
+
+            .mobile-text-content {
+                display: block !important;
+                padding: 15px 0;
+            }
+
+            .mobile-text-content p {
+                font-size: 0.95rem;
+                line-height: 1.6;
+                color: #444;
+                margin-bottom: 15px;
+                text-align: justify;
+            }
+
+            .mobile-text-content p:last-child {
+                margin-bottom: 0;
             }
 
             .header-content {
