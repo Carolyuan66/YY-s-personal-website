@@ -99,6 +99,17 @@ $(document).ready(function() {
                     },2500);
                 });
             }
+        },
+
+        afterSlideLoad: function(section, origin, destination, direction) {
+            // 当滑动到 ABOUT ME section 的第二个 slide（技能图表）时触发动画
+            if(section.anchor === 'skills' && destination.index === 1) {
+                $('.skillbar').each(function(){
+                    $(this).find('.skillbar-bar').animate({
+                        width: jQuery(this).attr('data-percent')
+                    }, 2500);
+                });
+            }
         }
     });
 

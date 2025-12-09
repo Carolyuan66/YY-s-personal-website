@@ -161,6 +161,15 @@
 
         /* 平板和手机 */
         @media (max-width: 768px) {
+            .section[data-anchor="skills"] .content-slide .slide:first-child p {
+                font-size: 1.35rem !important;
+                line-height: 1.6 !important;
+            }
+
+            .section[data-anchor="skills"] .content-slide .slide:first-child h1 {
+                font-size: 1.9rem !important;
+            }
+
             .chart-container {
                 width: 98%;
                 max-height: 550px;
@@ -499,62 +508,83 @@
     </div>
     <!-- end section -->
 
-    <!-- begin section -->
+    <!-- ABOUT ME Section -->
     <div class="section" data-anchor="skills">
-        <div class="content">
-            <h1 class="wow fadeInDown" data-wow-delay="0.2s" style="color:#337ab7">ABOUT ME</h1>
-            <p class="wow fadeInDown" data-wow-delay="0.2s">Hi, I'm Carol Yuan,
-                a Master's graduate in Digital Business with hands-on experience in market research,
-                data analysis, and social media marketing. I'm skilled in using tools like SQL, Tableau,
-                Power BI, SAP, and Python to uncover insights and support better business decisions.
-                With a strong foundation in business analytics, I enjoy turning data into strategy and
-                helping teams make smarter, data-driven choices. I'm excited to bring my analytical mindset
-                and digital expertise into a fast-paced, forward-thinking environment.
-            </p>
+        <div class="content-slide">
 
-            <div class=" wow fadeInUp container-skillbar" data-wow-delay="0.2s">
-                <div class="skillbar clearfix " data-percent="90%">
-                    <div class="skillbar-title" style="background: #337ab7;"><span>TABLEAU</span></div>
-                    <div class="skillbar-bar" style="background: #337ab7;"></div>
-                    <div class="skill-bar-percent">90%</div>
-                </div> <!-- End Skill Bar -->
+            <!-- Slide 1: About Me 文字介绍 -->
+            <div class="slide">
+                <h1 class="wow fadeInDown" data-wow-delay="0.2s" style="color:#337ab7">ABOUT ME</h1>
+                <p class="wow fadeInDown" data-wow-delay="0.2s">Market Research Analyst | Data Enthusiast | Digital Business Graduate</p>
+                <p class="wow fadeInUp" data-wow-delay="0.3s">
+                    Hi, I'm <strong>Carol Yuan</strong>, a Master's graduate in Digital Business with hands-on experience in market research, data analysis, and e-commerce operations. I'm skilled in using tools like SQL, Tableau, Power BI, SAP, and Python to uncover insights and support better business decisions. My journey has taken me from journalism studies at Sichuan University, to market research in China's medical investment sector, to running my own e-commerce business—each experience shaping how I approach problems and communicate solutions.
+                </p>
 
-                <div class="skillbar clearfix " data-percent="60%">
-                    <div class="skillbar-title" style="background: #337ab7;"><span>PYTHON</span></div>
-                    <div class="skillbar-bar" style="background: #337ab7;"></div>
-                    <div class="skill-bar-percent">60%</div>
-                </div> <!-- End Skill Bar -->
+                <p class="wow fadeInUp" data-wow-delay="0.4s">
+                    Outside of analytics, I'm passionate about <strong>photography</strong> and <strong>creative writing</strong>. These creative pursuits keep my problem-solving fresh and give me a different perspective on how to tell stories with data and present insights in ways that resonate.
+                </p>
 
-                <div class="skillbar clearfix " data-percent="80%">
-                    <div class="skillbar-title" style="background: #337ab7;"><span>SQL</span></div>
-                    <div class="skillbar-bar" style="background: #337ab7;"></div>
-                    <div class="skill-bar-percent">80%</div>
-                </div> <!-- End Skill Bar -->
-
-                <div class="skillbar clearfix " data-percent="90%">
-                    <div class="skillbar-title" style="background: #337ab7;"><span>POWER BI</span></div>
-                    <div class="skillbar-bar" style="background: #337ab7;"></div>
-                    <div class="skill-bar-percent">90%</div>
-                </div> <!-- End Skill Bar -->
-
-                <div class="skillbar clearfix " data-percent="60%">
-                    <div class="skillbar-title" style="background: #337ab7;"><span>HTML</span></div>
-                    <div class="skillbar-bar" style="background: #337ab7;"></div>
-                    <div class="skill-bar-percent">60%</div>
-                </div> <!-- End Skill Bar -->
-
-                <div class="skillbar clearfix " data-percent="70%">
-                    <div class="skillbar-title" style="background: #337ab7;"><span>SAP</span></div>
-                    <div class="skillbar-bar" style="background: #337ab7;"></div>
-                    <div class="skill-bar-percent">70%</div>
-                </div> <!-- End Skill Bar -->
-
-                <div class="skillbar clearfix " data-percent="90%">
-                    <div class="skillbar-title" style="background: #337ab7;"><span>MS EXCEL</span></div>
-                    <div class="skillbar-bar" style="background: #337ab7;"></div>
-                    <div class="skill-bar-percent">90%</div>
-                </div> <!-- End Skill Bar -->
+                <p class="wow fadeInUp" data-wow-delay="0.5s" style="font-style: italic;">
+                    I'm excited to bring my analytical mindset and digital expertise into a fast-paced, forward-thinking environment where I can contribute to meaningful business outcomes.
+                </p>
             </div>
+
+            <!-- Slide 2: Skills & Expertise 技能柱状图 -->
+            <div class="slide">
+                <h1 class="wow fadeInDown" data-wow-delay="0.2s" style="color:#337ab7">SKILLS & EXPERTISE</h1>
+                <p class="wow fadeInDown subtitle-text" data-wow-delay="0.2s">Technical Proficiencies & Tools</p>
+
+                <div class="wow fadeInUp container-skillbar" data-wow-delay="0.2s">
+                    <div class="skillbar clearfix" data-percent="90%">
+                        <div class="skillbar-title" style="background: #337ab7;"><span>TABLEAU</span></div>
+                        <div class="skillbar-bar" style="background: #337ab7;"></div>
+                        <div class="skill-bar-percent">90%</div>
+                    </div>
+
+                    <div class="skillbar clearfix" data-percent="60%">
+                        <div class="skillbar-title" style="background: #337ab7;"><span>PYTHON</span></div>
+                        <div class="skillbar-bar" style="background: #337ab7;"></div>
+                        <div class="skill-bar-percent">60%</div>
+                    </div>
+
+                    <div class="skillbar clearfix" data-percent="80%">
+                        <div class="skillbar-title" style="background: #337ab7;"><span>SQL</span></div>
+                        <div class="skillbar-bar" style="background: #337ab7;"></div>
+                        <div class="skill-bar-percent">80%</div>
+                    </div>
+
+                    <div class="skillbar clearfix" data-percent="90%">
+                        <div class="skillbar-title" style="background: #337ab7;"><span>POWER BI</span></div>
+                        <div class="skillbar-bar" style="background: #337ab7;"></div>
+                        <div class="skill-bar-percent">90%</div>
+                    </div>
+
+                    <div class="skillbar clearfix" data-percent="60%">
+                        <div class="skillbar-title" style="background: #337ab7;"><span>HTML</span></div>
+                        <div class="skillbar-bar" style="background: #337ab7;"></div>
+                        <div class="skill-bar-percent">60%</div>
+                    </div>
+
+                    <div class="skillbar clearfix" data-percent="70%">
+                        <div class="skillbar-title" style="background: #337ab7;"><span>SAP</span></div>
+                        <div class="skillbar-bar" style="background: #337ab7;"></div>
+                        <div class="skill-bar-percent">70%</div>
+                    </div>
+
+                    <div class="skillbar clearfix" data-percent="90%">
+                        <div class="skillbar-title" style="background: #337ab7;"><span>MS EXCEL</span></div>
+                        <div class="skillbar-bar" style="background: #337ab7;"></div>
+                        <div class="skill-bar-percent">90%</div>
+                    </div>
+
+                    <div class="skillbar clearfix" data-percent="70%">
+                        <div class="skillbar-title" style="background: #337ab7;"><span>R</span></div>
+                        <div class="skillbar-bar" style="background: #337ab7;"></div>
+                        <div class="skill-bar-percent">70%</div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
     <!-- end section -->
