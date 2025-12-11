@@ -63,8 +63,8 @@ $(document).ready(function() {
         scrollBar: true,
         responsiveWidth: 400,
         navigation: true,
-        navigationTooltips: ['Home', 'About Me', 'Education', 'Projects', 'Contact'],
-        anchors: ['aboutme', 'skills', 'education', 'projects', 'contact'],
+        navigationTooltips: ['Home', 'About Me', 'Education', 'Projects', 'Portfolio', 'Contact'],
+        anchors: ['aboutme', 'skills', 'education', 'projects', 'portfolio', 'contact'],
         menu: '#myMenu',
         fitToSection: false,
 
@@ -132,8 +132,12 @@ $(document).ready(function() {
         $.fn.fullpage.moveTo(4);
     });
 
-    $(document).on('click', '#contact', function(){
+    $(document).on('click', '#portfolio', function(){
         $.fn.fullpage.moveTo(5);
+    });
+
+    $(document).on('click', '#contact', function(){
+        $.fn.fullpage.moveTo(6);
     });
 
     // smooth scrolling

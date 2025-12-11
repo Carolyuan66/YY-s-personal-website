@@ -5,6 +5,7 @@
     <title>Carol Personal Website </title>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/portfolio.css">
 
     <style>
         /* 图表容器样式 - 响应式高度 */
@@ -471,6 +472,7 @@
     <div class="header-links">
         <ul>
             <li data-menuanchor="contact"><a href="#contact">CONTACT</a></li>
+            <li data-menuanchor="portfolio"><a href="#portfolio">PORTFOLIO</a></li>
             <li data-menuanchor="projects"><a href="#projects">PROJECTS</a></li>
             <li data-menuanchor="education"><a href="#education">EDUCATION</a></li>
             <li data-menuanchor="skills"><a href="#skills">ABOUT ME</a></li>
@@ -488,6 +490,7 @@
                 <li data-menuanchor="skills"><a href="#skills">ABOUT ME</a></li>
                 <li data-menuanchor="education"><a href="#education">EDUCATION</a></li>
                 <li data-menuanchor="projects"><a href="#projects">PROJECTS</a></li>
+                <li data-menuanchor="portfolio"><a href="#portfolio">PORTFOLIO</a></li>
                 <li data-menuanchor="contact"><a href="#contact">CONTACT</a></li>
             </ul>
         </div>
@@ -715,6 +718,26 @@
     <!-- end section -->
 
     <!-- begin section -->
+    <div class="section" data-anchor="portfolio">
+        <div class="portfolio-container wow fadeInDown" data-wow-delay="0.2s">
+            <div class="portfolio-header">
+                <h1>PORTFOLIO</h1>
+                <p>Explore my photography journey through different lenses and perspectives</p>
+            </div>
+
+            <div class="portfolio-filters" id="portfolio-filters"></div>
+
+            <!-- Gallery Grid -->
+            <div class="portfolio-carousel" id="portfolio-carousel">
+                <div class="portfolio-loading">
+                    <i class="fa fa-spinner fa-spin"></i>
+                    <p>Loading gallery...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- begin section -->
     <div class="section" data-anchor="contact">
         <div class="content wow fadeInDown" data-wow-delay="0.2s">
             <h1 style="color:#337ab7">CONTACT</h1><br>
@@ -756,6 +779,9 @@
 <script src="assets/js/education/undergraduate.js?v=1.0"></script>
 <script src="assets/js/education/graduateDiploma.js?v=2.0"></script>
 <script src="assets/js/education/graduateMaster.js?v=1.0"></script>
+
+<!-- 引入 Portfolio 脚本 -->
+<script src="assets/js/portfolio/portfolio.js?v=3.0"></script>
 
 <!-- 图表初始化调用 -->
 <script>
@@ -939,6 +965,34 @@
         window.initAllCharts = initAllCharts;
         window.initEducationByIndex = initEducationByIndex;
         window.initAllEducation = initAllEducation;
+
+        // ============= Portfolio 初始化 =============
+        let portfolioInitialized = false;
+
+        function initializePortfolio() {
+            if (!portfolioInitialized && typeof initPortfolioGallery === 'function') {
+                initPortfolioGallery();
+                portfolioInitialized = true;
+                console.log('Portfolio initialized');
+            }
+        }
+
+        // 当进入 Portfolio section 时初始化
+        $('#fullpage').on('onLeave', function(section, origin, destination, direction) {
+            if ($(destination.item).attr('data-anchor') === 'portfolio') {
+                setTimeout(initializePortfolio, 300);
+            }
+        });
+
+        // 页面加载后预加载 Portfolio
+        setTimeout(function() {
+            if (typeof initPortfolioGallery === 'function') {
+                initializePortfolio();
+            }
+        }, 2000);
+
+        // 将函数暴露到全局
+        window.initializePortfolio = initializePortfolio;
 
     });
 </script>

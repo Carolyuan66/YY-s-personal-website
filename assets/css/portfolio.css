@@ -1,0 +1,634 @@
+/**
+ * Portfolio Carousel Gallery Styles
+ * 摄影作品集横向轮播样式
+ */
+
+/* ===========================
+   Portfolio Section 基础样式
+   =========================== */
+.section[data-anchor="portfolio"] {
+    background: #f8f9fa;
+}
+
+.portfolio-container {
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 0;
+    overflow: hidden; /* 防止横向滚动条外溢 */
+}
+
+.portfolio-header {
+    text-align: center;
+    margin-bottom: 35px;
+    padding: 0 20px;
+}
+
+.portfolio-header h1 {
+    color: #337ab7;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.portfolio-header p {
+    color: #666;
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* ===========================
+   Filter Buttons 筛选按钮
+   =========================== */
+.portfolio-filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 35px;
+    padding: 0 20px;
+}
+
+.portfolio-filter-btn {
+    padding: 10px 25px;
+    background: white;
+    border: 2px solid #337ab7;
+    color: #337ab7;
+    border-radius: 25px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.portfolio-filter-btn:hover {
+    background: #337ab7;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(51, 122, 183, 0.3);
+}
+
+.portfolio-filter-btn.active {
+    background: #337ab7;
+    color: white;
+    box-shadow: 0 4px 12px rgba(51, 122, 183, 0.4);
+}
+
+/* ===========================
+   Carousel 横向轮播容器
+   =========================== */
+.portfolio-carousel {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.portfolio-carousel.fade-in {
+    opacity: 1;
+}
+
+.portfolio-carousel-track {
+    display: flex;
+    gap: 25px;
+    padding: 10px 0;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    cursor: grab;
+
+    /* 隐藏滚动条 */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.portfolio-carousel-track::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.portfolio-carousel-track:active {
+    cursor: grabbing;
+}
+
+/* ===========================
+   Carousel Items 轮播项
+   =========================== */
+.portfolio-carousel-item {
+    flex: 0 0 auto;
+    width: 350px;
+    transition: transform 0.3s ease;
+}
+
+.portfolio-carousel-item:hover {
+    transform: scale(1.03);
+    z-index: 10;
+}
+
+.portfolio-item-inner {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    aspect-ratio: 4/3;
+    background: #f0f0f0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.portfolio-carousel-item:hover .portfolio-item-inner {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.portfolio-item-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.portfolio-carousel-item:hover .portfolio-item-inner img {
+    transform: scale(1.1);
+}
+
+/* ===========================
+   Overlay 悬停遮罩
+   =========================== */
+.portfolio-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0) 0%,
+            rgba(0, 0, 0, 0.7) 100%
+    );
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 25px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.portfolio-carousel-item:hover .portfolio-overlay {
+    opacity: 1;
+}
+
+.portfolio-info h3 {
+    color: white;
+    font-size: 1.3rem;
+    margin: 0 0 8px 0;
+    font-weight: 600;
+}
+
+.portfolio-info p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    margin: 0 0 15px 0;
+}
+
+.portfolio-view-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    background: rgba(51, 122, 183, 0.9);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+}
+
+.portfolio-carousel-item:hover .portfolio-view-btn {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.portfolio-view-btn:hover {
+    background: #23527c;
+    transform: scale(1.1);
+}
+
+/* ===========================
+   Lightbox 灯箱效果
+   =========================== */
+.portfolio-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.portfolio-lightbox.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    cursor: pointer;
+}
+
+.lightbox-content {
+    position: relative;
+    z-index: 10001;
+    max-width: 90vw;
+    max-height: 90vh;
+    animation: lightboxZoom 0.3s ease;
+}
+
+@keyframes lightboxZoom {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.lightbox-image-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lightbox-image-container img {
+    max-width: 100%;
+    max-height: 75vh;
+    border-radius: 8px;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+    transition: opacity 0.3s ease;
+}
+
+.lightbox-caption {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px 30px;
+    border-radius: 8px;
+    margin-top: 20px;
+    max-width: 600px;
+    text-align: center;
+}
+
+.lightbox-caption h3 {
+    color: #333;
+    font-size: 1.5rem;
+    margin: 0 0 10px 0;
+}
+
+.lightbox-caption p {
+    color: #666;
+    font-size: 1rem;
+    margin: 0 0 10px 0;
+}
+
+.lightbox-counter {
+    display: inline-block;
+    background: #337ab7;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 15px;
+    font-size: 0.9rem;
+}
+
+/* Lightbox 控制按钮 */
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: #333;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10002;
+}
+
+.lightbox-close:hover,
+.lightbox-prev:hover,
+.lightbox-next:hover {
+    background: white;
+    transform: scale(1.1);
+}
+
+.lightbox-close {
+    top: 20px;
+    right: 20px;
+}
+
+.lightbox-prev {
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.lightbox-prev:hover {
+    transform: translateY(-50%) scale(1.1);
+}
+
+.lightbox-next {
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.lightbox-next:hover {
+    transform: translateY(-50%) scale(1.1);
+}
+
+.lightbox-prev:disabled,
+.lightbox-next:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.lightbox-prev:disabled:hover,
+.lightbox-next:disabled:hover {
+    transform: translateY(-50%) scale(1);
+}
+
+/* ===========================
+   Loading State 加载状态
+   =========================== */
+.portfolio-loading {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+}
+
+.portfolio-loading i {
+    font-size: 3rem;
+    color: #337ab7;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ===========================
+   响应式设计
+   =========================== */
+
+/* 小笔记本 1024-1366px */
+@media (max-width: 1366px) {
+    .portfolio-header h1 {
+        font-size: 2.2rem;
+    }
+
+    .portfolio-carousel-item {
+        width: 320px;
+    }
+}
+
+/* 平板竖屏 */
+@media (max-width: 1024px) {
+    .portfolio-container {
+        padding: 30px 0;
+    }
+
+    .portfolio-header h1 {
+        font-size: 2rem;
+    }
+
+    .portfolio-header p {
+        font-size: 1rem;
+    }
+
+    .portfolio-carousel-item {
+        width: 300px;
+    }
+
+    .portfolio-carousel-track {
+        gap: 20px;
+    }
+}
+
+/* 平板和手机 */
+@media (max-width: 768px) {
+    .portfolio-container {
+        padding: 25px 0;
+    }
+
+    .portfolio-header {
+        margin-bottom: 25px;
+    }
+
+    .portfolio-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .portfolio-filters {
+        gap: 8px;
+        margin-bottom: 25px;
+    }
+
+    .portfolio-filter-btn {
+        padding: 8px 18px;
+        font-size: 0.88rem;
+    }
+
+    .portfolio-carousel-item {
+        width: 280px;
+    }
+
+    .portfolio-carousel-track {
+        gap: 15px;
+    }
+
+    /* 移动端总是显示overlay */
+    .portfolio-overlay {
+        opacity: 1;
+        background: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0) 40%,
+                rgba(0, 0, 0, 0.8) 100%
+        );
+    }
+
+    .portfolio-info h3 {
+        font-size: 1.1rem;
+    }
+
+    .portfolio-info p {
+        font-size: 0.85rem;
+        margin-bottom: 10px;
+    }
+
+    .portfolio-view-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    /* Lightbox 移动端优化 */
+    .lightbox-content {
+        max-width: 95vw;
+        max-height: 95vh;
+    }
+
+    .lightbox-image-container img {
+        max-height: 70vh;
+    }
+
+    .lightbox-caption {
+        padding: 15px 20px;
+        margin-top: 15px;
+    }
+
+    .lightbox-caption h3 {
+        font-size: 1.2rem;
+    }
+
+    .lightbox-caption p {
+        font-size: 0.9rem;
+    }
+
+    .lightbox-close,
+    .lightbox-prev,
+    .lightbox-next {
+        width: 42px;
+        height: 42px;
+        font-size: 1.3rem;
+    }
+
+    .lightbox-close {
+        top: 10px;
+        right: 10px;
+    }
+
+    .lightbox-prev {
+        left: 10px;
+    }
+
+    .lightbox-next {
+        right: 10px;
+    }
+}
+
+/* 小手机 */
+@media (max-width: 576px) {
+    .portfolio-container {
+        padding: 20px 0;
+    }
+
+    .portfolio-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .portfolio-header p {
+        font-size: 0.95rem;
+    }
+
+    .portfolio-filters {
+        gap: 6px;
+    }
+
+    .portfolio-filter-btn {
+        padding: 6px 15px;
+        font-size: 0.82rem;
+    }
+
+    .portfolio-carousel-item {
+        width: 260px;
+    }
+
+    .portfolio-carousel-track {
+        gap: 12px;
+    }
+
+    .portfolio-item-inner {
+        border-radius: 8px;
+    }
+
+    .lightbox-caption {
+        padding: 12px 15px;
+    }
+
+    .lightbox-caption h3 {
+        font-size: 1.1rem;
+    }
+
+    .lightbox-caption p {
+        font-size: 0.85rem;
+    }
+}
+
+/* 超小手机 */
+@media (max-width: 400px) {
+    .portfolio-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .portfolio-filter-btn {
+        padding: 6px 12px;
+        font-size: 0.78rem;
+    }
+
+    .portfolio-carousel-item {
+        width: 240px;
+    }
+
+    .portfolio-info h3 {
+        font-size: 1rem;
+    }
+
+    .portfolio-info p {
+        font-size: 0.8rem;
+    }
+}
+
+/* ===========================
+   优化：防止触摸设备的滚动冲突
+   =========================== */
+@media (hover: none) and (pointer: coarse) {
+    .portfolio-carousel-track {
+        cursor: default;
+    }
+
+    .portfolio-carousel-track:active {
+        cursor: default;
+    }
+}
+
+/* 隐藏 Lightbox 左右箭头按钮 */
+.lightbox-prev,
+.lightbox-next {
+    display: none !important;
+}
