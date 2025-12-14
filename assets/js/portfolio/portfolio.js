@@ -26,7 +26,15 @@ const portfolioData = {
         { id: 7, src: 'assets/images/portfolio/7.jpg', category: 'artistic', title: 'Liquid Geometry', description: 'Abstract ceiling lights reflection' },
         { id: 8, src: 'assets/images/portfolio/8.jpg', category: 'nature', title: 'Seasons Collide', description: 'Nature landscape photography' },
         { id: 9, src: 'assets/images/portfolio/9.jpg', category: 'portrait', title: 'Night of a Thousand Lights', description: 'Lanterns in the night' },
-        { id: 10, src: 'assets/images/portfolio/10.jpg', category: 'nature', title: 'Wild Current', description: 'Rushing water through rocks' }
+        { id: 10, src: 'assets/images/portfolio/10.jpg', category: 'nature', title: 'Wild Current', description: 'Rushing water through rocks' },
+        { id: 11, src: 'assets/images/portfolio/11.jpg', category: 'artistic', title: 'Narcissus', description: 'Mirror Image of flowers' },
+        { id: 12, src: 'assets/images/portfolio/12.jpg', category: 'nature', title: 'Blue Spring', description: 'Untouched natural wonder' },
+        { id: 13, src: 'assets/images/portfolio/13.jpg', category: 'street', title: 'Urban Relic', description: 'Timeless urban charm' },
+        { id: 14, src: 'assets/images/portfolio/14.jpg', category: 'artistic', title: 'Rice Field', description: 'Solitary farmer`s rhythm' },
+        { id: 15, src: 'assets/images/portfolio/15.jpg', category: 'street', title: 'Convience Store', description: 'Midnight reflections' },
+        { id: 16, src: 'assets/images/portfolio/16.jpg', category: 'portrait', title: 'Pink Magnolia', description: 'Traditional harmony' },
+        { id: 17, src: 'assets/images/portfolio/17.jpg', category: 'artistic', title: 'Window View', description: 'Garden glimpse' },
+        { id: 18, src: 'assets/images/portfolio/18.jpg', category: 'artistic', title: 'Mirror View', description: 'Spring in focus' },
     ]
 };
 
