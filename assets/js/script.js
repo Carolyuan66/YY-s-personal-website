@@ -16,7 +16,7 @@ $(document).ready(function() {
     })(jQuery);
 
     // input text for typing animation
-    $("#holder").writeText("Market Research Analyst / Digital Analyst");
+    $("#holder").writeText("Market Research Analyst / Digital Analyst/ Business Developer");
 
     // initialize wow.js
     new WOW().init();
